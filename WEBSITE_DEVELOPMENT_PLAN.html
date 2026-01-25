@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026 Texas-Mexico International Border Crossings Guide – Website Development Plan</title>
+<style>
+  :root {
+    --bg-main: #ffffff;
+    --bg-sidebar: #f8fafc;
+    --text-main: #1f2933;
+    --text-heading: #0f172a;
+    --text-muted: #64748b;
+    --text-link: #475569;
+    --link-active: #0f62fe;
+    --border-color: #e2e8f0;
+    --code-bg: #f3f4f6;
+    --note-bg: #eef2ff;
+    --note-border: #6366f1;
+    --table-header-bg: #f1f5f9;
+  }
+
+  [data-theme="dark"] {
+    --bg-main: #0f172a;
+    --bg-sidebar: #1e293b;
+    --text-main: #cbd5e1;
+    --text-heading: #f8fafc;
+    --text-muted: #94a3b8;
+    --text-link: #94a3b8;
+    --link-active: #3b82f6;
+    --border-color: #334155;
+    --code-bg: #1e293b;
+    --note-bg: #1e1b4b;
+    --note-border: #818cf8;
+    --table-header-bg: #1e293b;
+  }
+
+  body { font-family: "Segoe UI", Arial, sans-serif; margin: 0; line-height: 1.6; color: var(--text-main); background: var(--bg-main); display: flex; transition: background 0.3s, color 0.3s; }
+  .sidebar { width: 280px; height: 100vh; position: sticky; top: 0; background: var(--bg-sidebar); border-right: 1px solid var(--border-color); padding: 2rem 1.5rem; overflow-y: auto; box-sizing: border-box; display: flex; flex-direction: column; }
+  .content { flex: 1; padding: 2rem 3rem 80vh 3rem; max-width: 900px; margin: 0 auto; box-sizing: border-box; }
+  h1, h2, h3 { color: var(--text-heading); }
+  h1 { margin-top: 0; font-size: 1.85rem; }
+  h2 { margin-top: 2.5rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem; font-size: 1.5rem; }
+  h3 { margin-top: 1.75rem; font-size: 1.2rem; }
+  .toc-title { font-weight: 700; color: var(--text-muted); text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.05em; margin-bottom: 1rem; }
+  .toc-list { list-style: none; padding: 0; margin: 0; flex-grow: 1; }
+  .toc-list li { margin: 0.25rem 0; }
+  .toc-list a { color: var(--text-link); font-size: 0.9rem; text-decoration: none; display: block; padding: 0.35rem 0.75rem; border-radius: 6px; transition: all 0.2s; }
+  .toc-list a:hover { color: var(--link-active); background: var(--code-bg); }
+  .toc-list a.active { color: var(--link-active); background: var(--code-bg); font-weight: 600; }
+  
+  .theme-toggle { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--border-color); display: flex; align-items: center; gap: 0.75rem; cursor: pointer; color: var(--text-muted); font-size: 0.85rem; background: none; border-left: none; border-right: none; border-bottom: none; width: 100%; text-align: left; }
+  .theme-toggle:hover { color: var(--link-active); }
+  .theme-toggle svg { width: 18px; height: 18px; fill: currentColor; }
+
+  code { background: var(--code-bg); padding: 0.1rem 0.25rem; border-radius: 4px; color: var(--text-heading); }
+  pre { background: var(--code-bg); padding: 1rem; border-radius: 6px; overflow-x: auto; border: 1px solid var(--border-color); }
+  ul { padding-left: 1.25rem; }
+  li { margin: 0.35rem 0; }
+  a { color: var(--link-active); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .note { background: var(--note-bg); border-left: 4px solid var(--note-border); padding: 0.75rem 1rem; border-radius: 6px; margin: 1.5rem 0; }
+  .note strong { color: var(--text-heading); }
+  
+  table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; border: 1px solid var(--border-color); }
+  th, td { padding: 0.75rem 1rem; text-align: left; border: 1px solid var(--border-color); }
+  th { background: var(--table-header-bg); font-weight: 600; color: var(--text-heading); }
+  tr:hover { background: var(--code-bg); }
+  
+  strong { color: var(--text-heading); }
+</style>
+</head>
+<body>
+<nav class="sidebar">
+  <div class="toc-title">Table of Contents</div>
+  <ul class="toc-list">
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#team-roles">Team Roles & Responsibilities</a></li>
+    <li><a href="#advantages">Key Advantages</a></li>
+    <li><a href="#challenges">Key Building Challenges</a></li>
+    <li><a href="#content-strategy">Content Management Strategy</a></li>
+    <li><a href="#site-structure">Site Structure</a></li>
+    <li><a href="#architecture">Architecture Overview</a></li>
+    <li><a href="#timeline">Implementation Timeline</a></li>
+    <li><a href="#next-steps">Next Steps</a></li>
+    <li><a href="#future-enhancements">Future Enhancements</a></li>
+    <li><a href="#questions">Questions for Discussion</a></li>
+  </ul>
+  <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+    <svg viewBox="0 0 24 24" id="moon-icon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+    <svg viewBox="0 0 24 24" id="sun-icon" style="display:none;"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+    <span id="theme-text">Dark Mode</span>
+  </button>
+</nav>
+
+<main class="content">
+<h1 id="overview">2026 Texas-Mexico International Border Crossings Guide</h1>
+
+<h2>Website Development Plan</h2>
+
+<h3>Overview</h3>
+
+<p>Create a unified website platform that consolidates content from the existing <strong>ArcGIS StoryMap</strong>, data from the <strong>2025 Bridge Guidebook (PDF)</strong>, and interactive <strong>ArcGIS Online (AGOL)</strong> maps into one comprehensive resource. The content will be updated to reflect the <strong>2026 version</strong> of the Texas-Mexico International Border Crossings Guide.</p>
+
+<p><strong>Mission:</strong> Provide a one-stop solution for comprehensive Texas-Mexico border crossing information, serving travelers, logistics professionals, and stakeholders with accurate, up-to-date, and accessible bilingual resources.</p>
+
+<p><strong>Website Features:</strong></p>
+<ul>
+  <li>Region overview pages with interactive maps and scroll-triggered animations</li>
+  <li>Individual border crossing detail pages (English + Spanish)</li>
+  <li>PDF download capability for each crossing (2-3 page fact sheets)</li>
+  <li>Automated content generation from centralized data sources</li>
+</ul>
+
+<p><strong>Note on Existing Interactive Components:</strong></p>
+<ul>
+  <li><strong>ArcGIS Experience Builder App</strong>: Currently embedded in StoryMap—will be reused as-is (migration is complex and not prioritized)</li>
+  <li><strong>Tableau Data Visualizations</strong>: Currently embedded in StoryMap—will be reused as-is initially; may migrate to web technologies later</li>
+</ul>
+
+<p><strong>Charts and Data Visualizations from Guidebook:</strong></p>
+<ul>
+  <li>Static charts from 2024 Bridge Guidebook will be converted to interactive web-based visualizations</li>
+</ul>
+
+<h2 id="team-roles">Team Roles & Responsibilities</h2>
+
+<p><strong>Digital Solution Developer:</strong></p>
+<ul>
+  <li>Develops and maintains data analysis and visualizations</li>
+  <li>Creates interactive dashboards and web applications</li>
+  <li>Designs visual layouts, graphics, and user interface elements</li>
+  <li>Sets up data spreadsheets (CSV) and text document (Markdown) structure</li>
+  <li>Leads initial data migration from existing sources</li>
+  <li>Runs build scripts to generate pages</li>
+  <li>Manages deployment and maintains templates</li>
+  <li>Configures ArcGIS Online (AGOL) web map</li>
+</ul>
+
+<p><strong>Content Expert / Subject Matter Expert (SME):</strong></p>
+<ul>
+  <li>Serves as project manager and primary client liaison</li>
+  <li>Manages stakeholder expectations and project timelines</li>
+  <li>Reviews migrated data for accuracy</li>
+  <li>Updates content with most recent information</li>
+  <li>Updates statistics and operational details</li>
+  <li>Edits region narratives in Markdown files</li>
+  <li>Validates bilingual content</li>
+</ul>
+
+<h2 id="advantages">Key Advantages Over ArcGIS StoryMaps</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Aspect</th>
+      <th>Previous Process</th>
+      <th>New Automated Process</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Data Management</strong></td>
+      <td>Content duplicated across PDF, StoryMap; inconsistency risk</td>
+      <td>Single source of truth (CSV + Markdown files)</td>
+    </tr>
+    <tr>
+      <td><strong>Update Workflow</strong></td>
+      <td>Multiple rounds of back-and-forth with designer</td>
+      <td>SME edits directly; automated build</td>
+    </tr>
+    <tr>
+      <td><strong>Quality Control</strong></td>
+      <td>Errors accumulate across versions</td>
+      <td>One data source eliminates discrepancies</td>
+    </tr>
+    <tr>
+      <td><strong>Customization</strong></td>
+      <td>Limited by StoryMap constraints</td>
+      <td>Full control over design, layout, features</td>
+    </tr>
+    <tr>
+      <td><strong>Scalability</strong></td>
+      <td>Single-page limitation</td>
+      <td>Multi-page site with bilingual support</td>
+    </tr>
+    <tr>
+      <td><strong>Output Formats</strong></td>
+      <td>Manual PDF creation</td>
+      <td>Automated website + PDF generation</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="challenges">Key Building Challenges</h2>
+
+<h3>1. PDF Generation Quality & Layout Precision</h3>
+<ul>
+  <li>Automated PDFs must exactly match sample format (2-3 pages, mostly 3 pages)</li>
+  <li>Bilingual text (EN/ES) has different lengths - layout must accommodate both</li>
+  <li>Time-consuming trial-and-error to get layout pixel-perfect</li>
+</ul>
+
+<h3>2. ArcGIS Online (AGOL) Map Integration & Scroll Animations</h3>
+<ul>
+  <li>Coordinating smooth scroll-triggered map animations</li>
+  <li>Single ArcGIS Online (AGOL) map used across 3 region pages with different zoom/center coordinates</li>
+  <li>Requires careful tuning and testing to feel smooth</li>
+</ul>
+
+<h3>3. CSV Data Structure & Parsing</h3>
+<ul>
+  <li>Designing CSV structure with 30+ bilingual columns that works for both HTML pages AND PDF generation</li>
+  <li>Must handle special characters and formatting variations</li>
+  <li>Need robust error handling</li>
+</ul>
+
+<h3>4. Content Migration from 2025 Bridge Guidebook</h3>
+<ul>
+  <li>Extracting and structuring content from existing PDF guidebook into CSV/Markdown format</li>
+  <li>Manual data entry from PDF (no automated extraction)</li>
+  <li>Ensuring accuracy during migration</li>
+  <li>Creating bilingual content if Spanish doesn't exist yet</li>
+  <li>Labor-intensive; QC is critical</li>
+</ul>
+
+<h2 id="content-strategy">Content Management Strategy</h2>
+
+<h3>Three-Tier Data Approach:</h3>
+
+<p><strong>1. ArcGIS Online (AGOL) Web Map</strong> - Interactive map display with points and popups</p>
+<ul>
+  <li>Developer updates in AGOL portal</li>
+  <li>Changes appear instantly on website (no deployment needed)</li>
+</ul>
+
+<p><strong>2. CSV File</strong> - Structured border crossing data</p>
+<ul>
+  <li>Names, coordinates, statistics, hours, tolls, descriptions (bilingual)</li>
+  <li>SME edits in SharePoint Excel</li>
+  <li>Generates individual crossing pages and PDFs</li>
+</ul>
+
+<p><strong>3. Markdown Files</strong> - Long-form narrative content</p>
+<ul>
+  <li>Regional histories and detailed stories</li>
+  <li>SME edits in SharePoint or GitHub web editor</li>
+  <li>Populates region overview pages</li>
+</ul>
+
+<h3>Content Update Workflow:</h3>
+<ul>
+  <li><strong>ArcGIS Online (AGOL) Map</strong>: Developer edits → Saves → Instant update</li>
+  <li><strong>CSV Data</strong>: SME edits in SharePoint → Developer builds → Deploys</li>
+  <li><strong>Markdown</strong>: SME edits in SharePoint/GitHub → Developer builds → Deploys</li>
+</ul>
+
+<h2 id="site-structure">Site Structure</h2>
+
+<h3>Home Page:</h3>
+<ul>
+  <li>Overview map showing all regions</li>
+  <li>Quick links to each region</li>
+  <li>Featured border crossings</li>
+</ul>
+
+<h3>Region Overview Pages (RGV, Laredo, El Paso):</h3>
+<ul>
+  <li>Interactive map with scroll-triggered animations</li>
+  <li>Historical narratives and regional context</li>
+  <li>Links to individual crossing detail pages</li>
+</ul>
+
+<h3>Individual Crossing Pages (English + Spanish):</h3>
+<ul>
+  <li>Comprehensive crossing information</li>
+  <li>Statistics and operational details</li>
+  <li>PDF download option</li>
+  <li>Language switcher</li>
+</ul>
+
+<h3>PDF Fact Sheets:</h3>
+<ul>
+  <li>2-3 page downloadable documents (most will be 3 pages)</li>
+  <li>Match existing guidebook format</li>
+  <li>Available in English and Spanish</li>
+</ul>
+
+<h2 id="architecture">Architecture Overview</h2>
+
+<h3>Data Flow:</h3>
+
+<p><strong>1. Inputs (Data Sources):</strong></p>
+<ul>
+  <li><strong>Border Crossing Data</strong>: Managed in Spreadsheets (CSV).</li>
+  <li><strong>Regional Narratives</strong>: Managed in Text Documents (Markdown).</li>
+  <li><strong>Map Data</strong>: Managed in ArcGIS Online (AGOL).</li>
+</ul>
+
+<p><strong>2. Processing:</strong></p>
+<ul>
+  <li><strong>Automated Build Process</strong>: The system takes the spreadsheets and text documents and combines them.</li>
+</ul>
+
+<p><strong>3. Outputs:</strong></p>
+<ul>
+  <li><strong>Website Pages</strong>: Interactive web pages for each region and crossing.</li>
+  <li><strong>PDF Documents</strong>: Downloadable fact sheets generated automatically.</li>
+</ul>
+
+<p><strong>4. Hosting & Display:</strong></p>
+<ul>
+  <li>Everything is published to <strong>GitHub Pages</strong> to create the final <strong>Public Website</strong>.</li>
+</ul>
+
+<h2 id="timeline">Implementation Timeline Estimate</h2>
+
+<div class="note">
+  <strong>Note:</strong> These phases represent major work streams that will often happen concurrently rather than sequentially. For example, initial templates can be built while data migration is ongoing, and design work can proceed in parallel with core development.
+</div>
+
+<h3>Phase 1: Data Preparation & Content Migration (Estimated 60-80 hours)</h3>
+<ul>
+  <li>Developer: Set up data spreadsheets (CSV) and text document (Markdown) templates</li>
+  <li>Developer: Lead initial data extraction from 2025 Bridge Guidebook PDF</li>
+  <li>Developer: Create structured CSV file (20+ crossings × 30+ fields)</li>
+  <li>Developer: Update technical data points</li>
+  <li>SME: Review migrated data for accuracy</li>
+  <li>SME: Update with most recent information and statistics</li>
+  <li>Both: Ensure bilingual content is complete (English + Spanish versions)</li>
+  <li>Both: Quality checking and data validation</li>
+  <li>Both: Multiple review and correction cycles</li>
+</ul>
+
+<h3>Phase 2: Foundation & Build System (Estimated 25-35 hours)</h3>
+<ul>
+  <li>Project setup and build system architecture</li>
+  <li>CSV structure design and validation logic</li>
+  <li>Template creation (home, region, crossing, PDF templates)</li>
+  <li>Build script development</li>
+</ul>
+
+<h3>Phase 3: Core Development (Estimated 60-80 hours)</h3>
+<ul>
+  <li>Build scripts for page and PDF generation</li>
+  <li>ArcGIS Online (AGOL) map integration and configuration</li>
+  <li>Scroll animation implementation</li>
+  <li>Bilingual navigation and language switching</li>
+  <li>PDF generation system with layout precision</li>
+  <li>Interactive data visualizations (converting static guidebook charts to interactive web-based visualizations)</li>
+  <li>Custom charts for traffic statistics, trends, and crossing data</li>
+</ul>
+
+<h3>Phase 4: Design & Styling (Estimated 30-40 hours)</h3>
+<ul>
+  <li>Website design and branding</li>
+  <li>CSS styling for all page types</li>
+  <li>Print CSS for PDF generation</li>
+  <li>Ensuring consistency across all pages</li>
+  <li>Client feedback and design revisions</li>
+</ul>
+
+<h3>Phase 5: Testing, QA & Deployment (Estimated 25-35 hours)</h3>
+<ul>
+  <li>Build process testing with full dataset</li>
+  <li>Cross-browser testing</li>
+  <li>PDF quality verification</li>
+  <li>Link checking and validation</li>
+  <li>Performance testing</li>
+  <li>GitHub Pages deployment</li>
+  <li>SME documentation and training</li>
+</ul>
+
+<h3>Phase 6: Revisions & Polish (Estimated 40-60 hours)</h3>
+<ul>
+  <li>Client review cycles and stakeholder feedback</li>
+  <li>Content adjustments and refinements</li>
+  <li>Design tweaks and branding consistency</li>
+  <li>Bug fixes and edge case handling</li>
+  <li>Final polish and quality assurance</li>
+</ul>
+
+<h3>Total Estimated Time: 240-340 hours</h3>
+
+<p><strong>Breakdown by Role:</strong></p>
+<ul>
+  <li><strong>Developer: 170-240 hours</strong> (Technical implementation, build system, development, interactive maps, testing, bug fixes)</li>
+  <li><strong>SME: 70-100 hours</strong> (Data review, content updates, statistics, validation, content revisions)</li>
+</ul>
+
+<div class="note">
+  <strong>Note:</strong> This estimate accounts for the significant manual work required to create structured CSV and Markdown files from existing sources, comprehensive bilingual content creation and translation, and multiple rounds of client feedback and revisions.
+</div>
+
+<h2 id="next-steps">Next Steps</h2>
+
+<ol>
+  <li><strong>Review & Approval</strong>: Team reviews this plan and provides feedback</li>
+  <li><strong>Content Preparation</strong>: Begin extracting data from 2025 Bridge Guidebook</li>
+  <li><strong>Development Kickoff</strong>: Developer begins implementation</li>
+  <li><strong>Iterative Testing</strong>: Regular check-ins to review progress and generated samples</li>
+  <li><strong>Content Population</strong>: SME populates CSV with all crossing data</li>
+  <li><strong>Final Review</strong>: Team reviews generated website and PDFs</li>
+  <li><strong>Launch</strong>: Deploy to GitHub Pages and announce to public</li>
+</ol>
+
+<h2 id="future-enhancements">Future Enhancements</h2>
+
+<h3>AI-Powered Chatbot Assistant:</h3>
+<ul>
+  <li>Intelligent conversational interface to answer user questions about border crossings</li>
+  <li>Natural language query support (English and Spanish)</li>
+  <li>Provides instant answers about crossing hours, wait times, toll fees, documentation requirements, and facility information</li>
+  <li>Contextual recommendations based on user needs (commercial vs. passenger vehicles, travel times, etc.)</li>
+  <li>Integration with real-time data sources for current wait times and operational status</li>
+  <li>24/7 availability to assist travelers and logistics professionals</li>
+  <li>Reduces need for manual information searching and improves user experience</li>
+</ul>
+
+<h3>Benefits:</h3>
+<ul>
+  <li>Enhanced accessibility for users seeking quick answers</li>
+  <li>Reduced support burden on TxDOT staff</li>
+  <li>Improved user engagement and satisfaction</li>
+  <li>Valuable analytics on common user questions and information needs</li>
+</ul>
+
+<h2 id="questions">Questions for Discussion</h2>
+
+<ol>
+  <li>Do we have all border crossing data ready?</li>
+  <li>Are Spanish translations available for all content, or will they need to be created?</li>
+  <li>What is the desired launch date for the public website?</li>
+  <li>Do we need a custom domain, or is the GitHub Pages default URL acceptable?</li>
+  <li>What is the expected frequency of content updates after launch?</li>
+</ol>
+
+<div style="height: 40vh;"></div>
+</main>
+
+<script>
+  // Theme Toggle Logic
+  const themeToggle = document.getElementById('theme-toggle');
+  const moonIcon = document.getElementById('moon-icon');
+  const sunIcon = document.getElementById('sun-icon');
+  const themeText = document.getElementById('theme-text');
+  const html = document.documentElement;
+
+  const updateThemeUI = (isDark) => {
+    moonIcon.style.display = isDark ? 'none' : 'block';
+    sunIcon.style.display = isDark ? 'block' : 'none';
+    themeText.textContent = isDark ? 'Light Mode' : 'Dark Mode';
+    html.setAttribute('data-theme', isDark ? 'dark' : 'light');
+  };
+
+  // Initialize theme
+  const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  updateThemeUI(savedTheme === 'dark');
+
+  themeToggle.addEventListener('click', () => {
+    const isDark = html.getAttribute('data-theme') === 'dark';
+    const newTheme = isDark ? 'light' : 'dark';
+    localStorage.setItem('theme', newTheme);
+    updateThemeUI(!isDark);
+  });
+
+  // Scroll Spy Logic
+  const sections = document.querySelectorAll('h1[id], h2[id]');
+  const navLinks = document.querySelectorAll('.toc-list a');
+
+  const observerOptions = {
+    root: null,
+    rootMargin: '0px 0px -80% 0px',
+    threshold: 0
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.getAttribute('id');
+        navLinks.forEach(link => {
+          link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
+        });
+      }
+    });
+  }, observerOptions);
+
+  sections.forEach(section => observer.observe(section));
+
+  // Handle top and bottom edge cases
+  window.addEventListener('scroll', () => {
+    const scrollY = window.scrollY;
+    const scrollPosition = window.innerHeight + scrollY;
+    const bodyHeight = document.body.offsetHeight;
+
+    // Very top of page
+    if (scrollY <= 50) {
+      const firstId = sections[0].getAttribute('id');
+      navLinks.forEach(link => {
+        link.classList.toggle('active', link.getAttribute('href') === `#${firstId}`);
+      });
+      return;
+    }
+
+    // Very bottom of page
+    if (scrollPosition >= bodyHeight - 200) {
+      const lastId = sections[sections.length - 1].getAttribute('id');
+      navLinks.forEach(link => {
+        link.classList.toggle('active', link.getAttribute('href') === `#${lastId}`);
+      });
+    }
+  });
+</script>
+</body>
+</html>

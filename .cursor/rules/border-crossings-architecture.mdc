@@ -1,0 +1,59 @@
+---
+description: Border Crossings Website - Core Architecture & Principles
+alwaysApply: true
+---
+
+# Texas-Mexico Border Crossings Website Architecture
+
+**Project Overview:** Automated website + PDF generation system for Texas-Mexico international border crossings guide. Replaces manual ArcGIS StoryMap workflow with single source of truth approach.
+
+**Full Plan Reference:** See `WEBSITE_DEVELOPMENT_PLAN.md` for complete details, timeline, and implementation phases.
+
+## Core Architecture Principle
+
+**Single Source of Truth:** All content managed in structured data files that automatically generate both website pages and PDF fact sheets.
+
+## Three-Tier Data Management
+
+1. **ArcGIS Online (AGOL) Web Map** - Interactive map display
+   - Web Developer updates in AGOL portal
+   - Changes appear instantly (no deployment needed)
+
+2. **CSV File** - Structured border crossing data (30+ bilingual columns)
+   - Names, coordinates, statistics, hours, tolls, descriptions
+   - Generates individual crossing pages and PDFs
+   - Content Manager edits in SharePoint Excel
+
+3. **Markdown Files** - Long-form narrative content
+   - Regional histories and detailed stories
+   - Content Manager edits in SharePoint/GitHub
+   - Populates region overview pages
+
+## Critical Requirements
+
+**Bilingual Content (EN/ES):**
+- All crossing data must have English and Spanish versions
+- PDF layouts must accommodate different text lengths
+- Language switcher on all pages
+
+**PDF Generation:**
+- Must match 2-3 page format (mostly 3 pages)
+- Automated generation from CSV data
+- Pixel-perfect layout precision required
+
+**Team Roles:**
+- **Web Developer:** Data structure, build scripts, deployment, AGOL configuration
+- **Content Manager:** Data accuracy, content updates, statistics, bilingual validation
+
+## Key Technical Components
+
+- Automated build system (CSV + Markdown → HTML + PDF)
+- ArcGIS Online (AGOL) map integration with scroll animations
+- Single AGOL map reused across 3 region pages (different zoom/center)
+- Interactive data visualizations (converting static guidebook charts)
+- GitHub Pages deployment
+
+## Content Update Workflow
+
+- **AGOL Map:** Edit in portal → Save → Instant update
+- **CSV/Markdown:** Edit in SharePoint/GitHub → Build → Deploy
