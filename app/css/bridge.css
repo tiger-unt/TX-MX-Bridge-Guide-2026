@@ -508,3 +508,258 @@
         font-size: var(--font-size-lg);
     }
 }
+
+/* ==========================================
+   DOWNLOAD BUTTON — Actions Bar
+   ========================================== */
+.bridge-hero__actions {
+    margin-top: var(--space-4);
+}
+
+.bridge-hero__download {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.bridge-hero__download .btn__icon {
+    flex-shrink: 0;
+}
+
+/* ==========================================
+   UTILITY BAR & FOOTER — Bridge Page Overrides
+   (moved from inline <style> in HTML template)
+   ========================================== */
+.utility-bar {
+    background-color: #dadee5;
+    color: var(--color-text);
+}
+
+.utility-bar__link,
+.utility-bar__link:hover,
+.lang-dropdown__toggle {
+    color: var(--color-text);
+}
+
+.site-footer {
+    background-color: #dadee5;
+    color: var(--color-text);
+}
+
+.site-footer__heading,
+.site-footer__address a,
+.site-footer__link-list a,
+.site-footer__txdot-link {
+    color: var(--color-text);
+}
+
+/* Hide print-only elements on screen */
+.no-screen {
+    display: none;
+}
+
+/* ==========================================
+   PRINT STYLES — Bridge Page
+   Overrides global print.css selectively
+   to preserve TxDOT brand colors.
+   Output: Letter size (8.5 × 11 in)
+   ========================================== */
+@media print {
+
+    /* -- Print header (screen-hidden, shown in PDF) -- */
+    .bridge-print-header {
+        display: flex !important;
+        align-items: center;
+        justify-content: space-between;
+        padding-bottom: 8pt;
+        margin-bottom: 12pt;
+        border-bottom: 2pt solid #0056a9 !important;
+    }
+
+    .bridge-print-header__logo {
+        max-height: 40pt;
+    }
+
+    .bridge-print-header__text {
+        text-align: right;
+        font-size: 9pt;
+        color: #666 !important;
+    }
+
+    .bridge-print-header__text strong {
+        color: #0056a9 !important;
+    }
+
+    /* -- Print footer -- */
+    .bridge-print-footer {
+        display: block !important;
+        text-align: center;
+        font-size: 8pt;
+        color: #666 !important;
+        padding-top: 6pt;
+        border-top: 1pt solid #ccc !important;
+        margin-top: 16pt;
+    }
+
+    /* -- Hide non-print elements -- */
+    .bridge-hero__actions,
+    .breadcrumb,
+    #page-loader {
+        display: none !important;
+    }
+
+    /* -- Hero Section -- */
+    .bridge-hero {
+        background-color: #f5f7f9 !important;
+        border-bottom: 3pt solid #0056a9 !important;
+        padding: 12pt 0 !important;
+    }
+
+    .bridge-hero__layout {
+        display: grid !important;
+        grid-template-columns: 1fr 280pt !important;
+        gap: 16pt !important;
+    }
+
+    .bridge-hero__name-en {
+        font-size: 22pt !important;
+        color: #0056a9 !important;
+    }
+
+    .bridge-hero__name-es {
+        font-size: 12pt !important;
+        color: #666 !important;
+        font-style: italic;
+    }
+
+    .bridge-hero__badge {
+        background-color: #0056a9 !important;
+        color: #fff !important;
+        font-size: 8pt !important;
+        padding: 2pt 6pt !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    .bridge-hero__badge--type {
+        background-color: #002e69 !important;
+    }
+
+    .bridge-hero__map {
+        box-shadow: none !important;
+        border-radius: 0 !important;
+    }
+
+    .bridge-hero__map img {
+        max-height: 200pt !important;
+        border-radius: 0 !important;
+    }
+
+    /* -- Bridge Details Cards -- */
+    .bridge-details {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 12pt !important;
+    }
+
+    .bridge-details__card {
+        box-shadow: none !important;
+        border: 1pt solid #ccc !important;
+        border-top: 2pt solid #0056a9 !important;
+        border-radius: 0 !important;
+        padding: 10pt !important;
+        page-break-inside: avoid;
+    }
+
+    .bridge-details__card-title {
+        font-size: 11pt !important;
+        color: #0056a9 !important;
+    }
+
+    /* -- "Did You Know?" Callout (preserve branding) -- */
+    .callout {
+        background: #0056a9 !important;
+        color: #fff !important;
+        padding: 12pt !important;
+        border-radius: 0 !important;
+        page-break-inside: avoid;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    .callout__label {
+        background-color: #d90d0d !important;
+        color: #fff !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    .callout__text {
+        color: #fff !important;
+        font-size: 11pt !important;
+    }
+
+    /* -- Data Tables (Hours & Tolls) -- */
+    .bridge-table th {
+        background-color: #002e69 !important;
+        color: #fff !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    .bridge-table td {
+        border-bottom: 1pt solid #ccc !important;
+    }
+
+    .bridge-table tbody tr:hover {
+        background-color: transparent !important;
+    }
+
+    /* -- Page Breaks — Charts on new page -- */
+    .charts-grid {
+        page-break-before: always;
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 12pt !important;
+    }
+
+    .chart-card {
+        box-shadow: none !important;
+        border: 1pt solid #ccc !important;
+        border-radius: 0 !important;
+    }
+
+    /* -- Photo Gallery -- */
+    .gallery-grid {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 8pt !important;
+    }
+
+    .gallery-grid__item {
+        border-radius: 0 !important;
+        box-shadow: none !important;
+    }
+
+    .gallery-grid__item img {
+        transition: none !important;
+    }
+
+    /* -- Section spacing for print -- */
+    .section {
+        padding: 12pt 0 !important;
+    }
+
+    .section--sm {
+        padding: 8pt 0 !important;
+    }
+
+    .section--alt {
+        background-color: #f5f7f9 !important;
+    }
+
+    /* -- Ensure images don't break across pages -- */
+    img {
+        page-break-inside: avoid;
+    }
+}

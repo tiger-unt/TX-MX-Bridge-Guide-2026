@@ -2,130 +2,62 @@
  * Bridge Page Data Loader
  * Fetches CSV data and populates the bridge page DOM.
  *
- * Usage: set window.BRIDGE_ID before this script runs, e.g.:
- *   <script>window.BRIDGE_ID = "ELP-ELP-PASO";</script>
- *   <script src="js/bridge-loader.js"></script>
+ * Requires:
+ *   - csv-utils.js loaded first (provides window.CSVUtils)
+ *   - window.BRIDGE_ID set before this script runs
  */
 (function () {
     'use strict';
 
-    var BRIDGE_ID = window.BRIDGE_ID;
+    const { parseCSV, getModeIcon, fetchText, sanitizeBridgeID } = window.CSVUtils;
+    const BRIDGE_ID = sanitizeBridgeID(window.BRIDGE_ID, '');
+
     if (!BRIDGE_ID) {
-        console.error('bridge-loader: window.BRIDGE_ID is not set.');
+        console.error('bridge-loader: invalid or missing window.BRIDGE_ID.');
+        const loader = document.getElementById('page-loader');
+        if (loader) loader.textContent = 'Invalid bridge identifier. Please verify the page configuration.';
         return;
     }
 
-    // Paths are relative to the HTML file inside app/
-    var CSV_BASE = '../Data/';
-    var FILES = {
+    // Paths relative to the HTML file inside app/
+    const CSV_BASE  = '../Data/';
+    const ICON_BASE = '../assets/icons/';
+    const ASSET_BASE = '../assets/' + BRIDGE_ID + '/';
+
+    const FILES = {
         info:  CSV_BASE + 'border-info-eng.csv',
         modes: CSV_BASE + 'modes-info.csv',
         tolls: CSV_BASE + 'modes-tolls.csv'
     };
 
-    // ==========================================
-    // CSV Parser
-    // ==========================================
-
-    /**
-     * Parse a CSV string into an array of objects keyed by header row.
-     * Handles quoted fields (including fields with commas and newlines).
-     */
-    function parseCSV(text) {
-        var rows = [];
-        var current = '';
-        var inQuotes = false;
-        var fields = [];
-        var i = 0;
-        var len = text.length;
-
-        while (i < len) {
-            var ch = text[i];
-
-            if (inQuotes) {
-                if (ch === '"') {
-                    // Escaped quote ""
-                    if (i + 1 < len && text[i + 1] === '"') {
-                        current += '"';
-                        i += 2;
-                        continue;
-                    }
-                    // End of quoted field
-                    inQuotes = false;
-                    i++;
-                    continue;
-                }
-                current += ch;
-                i++;
-            } else {
-                if (ch === '"') {
-                    inQuotes = true;
-                    i++;
-                } else if (ch === ',') {
-                    fields.push(current.trim());
-                    current = '';
-                    i++;
-                } else if (ch === '\n' || ch === '\r') {
-                    fields.push(current.trim());
-                    current = '';
-                    rows.push(fields);
-                    fields = [];
-                    // Handle \r\n
-                    if (ch === '\r' && i + 1 < len && text[i + 1] === '\n') {
-                        i++;
-                    }
-                    i++;
-                } else {
-                    current += ch;
-                    i++;
-                }
-            }
-        }
-
-        // Last field / row
-        if (current.length > 0 || fields.length > 0) {
-            fields.push(current.trim());
-            rows.push(fields);
-        }
-
-        if (rows.length === 0) return [];
-
-        var headers = rows[0];
-        var objects = [];
-        for (var r = 1; r < rows.length; r++) {
-            // Skip empty rows
-            if (rows[r].length === 1 && rows[r][0] === '') continue;
-            var obj = {};
-            for (var c = 0; c < headers.length; c++) {
-                obj[headers[c]] = (rows[r][c] || '').replace(/_x0002_/g, '');
-            }
-            objects.push(obj);
-        }
-        return objects;
-    }
+    // Asset filename patterns — extensions match actual files on disk.
+    // TODO: normalize all asset filenames to lowercase extensions.
+    const ASSET_FILES = {
+        map:    ASSET_BASE + BRIDGE_ID + '_map.png',
+        chart1: ASSET_BASE + BRIDGE_ID + '_chart_1.png',
+        chart2: ASSET_BASE + BRIDGE_ID + '_chart_2.png',
+        photos: [
+            ASSET_BASE + BRIDGE_ID + '_1.JPG',
+            ASSET_BASE + BRIDGE_ID + '_2.png',
+            ASSET_BASE + BRIDGE_ID + '_3.JPG',
+            ASSET_BASE + BRIDGE_ID + '_5.jpg'
+        ]
+    };
 
     // ==========================================
     // Data Filtering
     // ==========================================
 
-    function filterByBridgeID(rows) {
-        return rows.filter(function (row) {
-            return row['Bridge-ID'] === BRIDGE_ID;
-        });
-    }
+    const filterByBridgeID = (rows) =>
+        rows.filter(row => row['Bridge-ID'] === BRIDGE_ID);
 
     // ==========================================
     // DOM Population — Simple Fields
     // ==========================================
 
-    /**
-     * Find all elements with [data-field] and set their text content
-     * from the info row object.
-     */
     function populateFields(info) {
-        var els = document.querySelectorAll('[data-field]');
-        els.forEach(function (el) {
-            var field = el.getAttribute('data-field');
+        document.querySelectorAll('[data-field]').forEach(el => {
+            const field = el.getAttribute('data-field');
             if (info[field] !== undefined && info[field] !== '') {
                 el.textContent = info[field];
             }
@@ -159,48 +91,65 @@
     // ==========================================
 
     function buildHoursTable(modesRows) {
-        var tbody = document.getElementById('hours-table-body');
-        if (!tbody || modesRows.length === 0) return;
+        const tbody = document.getElementById('hours-table-body');
+        if (!tbody) return;
 
-        // Clear placeholder
         tbody.innerHTML = '';
+        if (modesRows.length === 0) {
+            const tr = document.createElement('tr');
+            const td = document.createElement('td');
+            td.colSpan = 3;
+            td.textContent = 'No hours of operation data available.';
+            td.style.textAlign = 'center';
+            tr.appendChild(td);
+            tbody.appendChild(tr);
+            const asOfEl = document.getElementById('hours-as-of');
+            if (asOfEl) asOfEl.textContent = '';
+            return;
+        }
 
-        modesRows.forEach(function (row) {
-            var tr = document.createElement('tr');
+        modesRows.forEach(row => {
+            const tr = document.createElement('tr');
 
             // Mode column
-            var tdMode = document.createElement('td');
+            const tdMode = document.createElement('td');
+            tdMode.setAttribute('data-label', 'Mode');
             tdMode.textContent = row['Modes'] || '';
             tr.appendChild(tdMode);
 
-            // Combined Lane Details column (lanes + notes)
-            var tdLaneDetails = document.createElement('td');
-            var laneCount = row['InspectionLanes'] || '';
-            var laneNotes = row['InspectionLaneNotes'] || '';
+            // Combined Lane Details column
+            const tdLaneDetails = document.createElement('td');
+            tdLaneDetails.setAttribute('data-label', 'Lane Details');
+            const laneCount = row['InspectionLanes'] || '';
+            const laneNotes = row['InspectionLaneNotes'] || '';
 
             if (laneCount && laneNotes) {
-                tdLaneDetails.innerHTML = '<strong>' + laneCount + ' lanes</strong><br>' + laneNotes;
+                const strong = document.createElement('strong');
+                strong.textContent = laneCount + ' lanes';
+                tdLaneDetails.appendChild(strong);
+                tdLaneDetails.appendChild(document.createElement('br'));
+                tdLaneDetails.appendChild(document.createTextNode(laneNotes));
             } else if (laneCount) {
-                tdLaneDetails.innerHTML = '<strong>' + laneCount + ' lanes</strong>';
+                const strong = document.createElement('strong');
+                strong.textContent = laneCount + ' lanes';
+                tdLaneDetails.appendChild(strong);
             } else if (laneNotes) {
                 tdLaneDetails.textContent = laneNotes;
             } else {
-                tdLaneDetails.textContent = '—';
+                tdLaneDetails.textContent = '\u2014';
             }
             tr.appendChild(tdLaneDetails);
 
             // Combined Hours Column
-            var tdHours = document.createElement('td');
-            var cbpHours = row['Hours-of-Operation--CBP-Facilities'] || '';
-            var aduanasHours = row['Hours-of-Operation--ADUANAS-Facilities'] || '';
+            const tdHours = document.createElement('td');
+            tdHours.setAttribute('data-label', 'Hours of Operation');
+            const cbpHours = row['Hours-of-Operation--CBP-Facilities'] || '';
+            const aduanasHours = row['Hours-of-Operation--ADUANAS-Facilities'] || '';
 
-            // Smart formatting: combine if same, show both if different
             if (cbpHours && aduanasHours) {
                 if (cbpHours === aduanasHours) {
-                    // Same hours - show once with both labels
                     tdHours.textContent = cbpHours + ' (CBP & ADUANAS)';
                 } else {
-                    // Different hours - show both with labels
                     tdHours.textContent = cbpHours + ' (CBP), ' + aduanasHours + ' (ADUANAS)';
                 }
             } else if (cbpHours) {
@@ -208,69 +157,48 @@
             } else if (aduanasHours) {
                 tdHours.textContent = aduanasHours + ' (ADUANAS)';
             } else {
-                tdHours.textContent = '—';
+                tdHours.textContent = '\u2014';
             }
             tr.appendChild(tdHours);
 
             tbody.appendChild(tr);
         });
 
-        // Update "as of" note
-        var asOf = modesRows[0]['HOO-As-of'];
-        if (asOf) {
-            setText('hours-as-of', asOf);
-        }
+        const asOf = modesRows[0]['HOO-As-of'];
+        if (asOf) setText('hours-as-of', asOf);
     }
 
     // ==========================================
     // DOM Population — Toll Rates Table
     // ==========================================
 
-    // Map mode names to icon files
-    function getModeIcon(modeName) {
-        // Normalize whitespace (some CSV entries have double spaces)
-        var name = modeName.trim().replace(/\s+/g, ' ');
-
-        var iconMap = {
-            'Bus':                                      'bus.svg',
-            'Commercial Truck':                         'commercial-truck.svg',
-            'Commercial Truck (Empty)':                 'commercial-truck.svg',
-            'Commercial Trucks':                        'commercial-truck.svg',
-            'Commercial Trucks and Dual Tire Vehicles': 'commercial-truck.svg',
-            'Dual Tire Pickup':                         'pickup-truck.svg',
-            'Maquila Workers':                          'maquila-workers.svg',
-            'Motorcycle':                               'motorcycle.svg',
-            'Motorhome':                                'motorhome.svg',
-            'Passenger Vehicle':                        'passenger-vehicle.svg',
-            'Passenger Vehicles':                       'passenger-vehicle.svg',
-            'Pedestrian':                               'pedestrian.svg',
-            'Pedestrian or Bicycle':                    'pedestrian-bicycle.svg',
-            'Pedestrians':                              'pedestrian.svg',
-            'Pick-Up Trucks':                           'pickup-truck.svg',
-            'Transmigrant: Bus or Truck':               'transmigrant-bus.svg',
-            'Transmigrant: Passenger Vehicle':           'transmigrant-vehicle.svg',
-            'Rail':                                     'rail.svg'
-        };
-
-        if (iconMap[name]) {
-            return '../assets/icons/' + iconMap[name];
-        }
-        return null;
-    }
-
     function buildTollsTable(tollRows) {
-        var tbody = document.getElementById('tolls-table-body');
-        if (!tbody || tollRows.length === 0) return;
+        const tbody = document.getElementById('tolls-table-body');
+        if (!tbody) return;
 
         tbody.innerHTML = '';
+        if (tollRows.length === 0) {
+            const tr = document.createElement('tr');
+            const td = document.createElement('td');
+            td.colSpan = 6;
+            td.textContent = 'No toll data available.';
+            td.style.textAlign = 'center';
+            tr.appendChild(td);
+            tbody.appendChild(tr);
+            const asOfEl = document.getElementById('tolls-as-of');
+            if (asOfEl) asOfEl.textContent = '';
+            const sourceEl = document.getElementById('tolls-source');
+            if (sourceEl) sourceEl.textContent = '';
+            return;
+        }
 
-        // Group rows by mode to calculate rowspan
-        var modeGroups = [];
-        var currentMode = null;
-        var currentGroup = [];
+        // Group rows by mode for rowspan
+        const modeGroups = [];
+        let currentMode = null;
+        let currentGroup = [];
 
-        tollRows.forEach(function (row, index) {
-            var modeName = row['Modes'] || '';
+        tollRows.forEach(row => {
+            const modeName = row['Modes'] || '';
             if (modeName !== currentMode) {
                 if (currentGroup.length > 0) {
                     modeGroups.push({ mode: currentMode, rows: currentGroup });
@@ -286,70 +214,81 @@
         }
 
         // Build table with merged cells
-        modeGroups.forEach(function (group) {
-            var iconPath = getModeIcon(group.mode);
-            var rowspan = group.rows.length;
+        modeGroups.forEach(group => {
+            const iconPath = getModeIcon(group.mode, ICON_BASE);
+            const rowspan = group.rows.length;
 
-            // Check if all SB axles and tolls are the same within this mode group
-            var firstSBAxles = group.rows[0]['AxlesSouthbound'] || '—';
-            var firstSBTolls = group.rows[0]['SouthboundTolls'] || '—';
-            var allSBSame = group.rows.every(function (r) {
-                return (r['AxlesSouthbound'] || '—') === firstSBAxles &&
-                       (r['SouthboundTolls'] || '—') === firstSBTolls;
-            });
+            // Check if all SB axles and tolls are identical within group
+            const firstSBAxles = group.rows[0]['AxlesSouthbound'] || '\u2014';
+            const firstSBTolls = group.rows[0]['SouthboundTolls'] || '\u2014';
+            const allSBSame = group.rows.every(r =>
+                (r['AxlesSouthbound'] || '\u2014') === firstSBAxles &&
+                (r['SouthboundTolls'] || '\u2014') === firstSBTolls
+            );
 
-            group.rows.forEach(function (row, rowIndex) {
-                var tr = document.createElement('tr');
+            group.rows.forEach((row, rowIndex) => {
+                const tr = document.createElement('tr');
 
-                // Icon column (only on first row of group)
+                // Icon + Mode columns (only first row of group)
                 if (rowIndex === 0) {
-                    var tdIcon = document.createElement('td');
+                    const tdIcon = document.createElement('td');
+                    tdIcon.setAttribute('data-label', '');
                     if (rowspan > 1) tdIcon.setAttribute('rowspan', rowspan);
                     if (iconPath) {
-                        tdIcon.innerHTML = '<img src="' + iconPath + '" alt="" class="mode-icon" aria-hidden="true">';
+                        const icon = document.createElement('img');
+                        icon.src = iconPath;
+                        icon.alt = '';
+                        icon.className = 'mode-icon';
+                        tdIcon.appendChild(icon);
                     }
                     tr.appendChild(tdIcon);
 
-                    // Mode column (only on first row of group)
-                    var tdMode = document.createElement('td');
+                    const tdMode = document.createElement('td');
+                    tdMode.setAttribute('data-label', 'Mode');
                     if (rowspan > 1) tdMode.setAttribute('rowspan', rowspan);
                     tdMode.textContent = group.mode;
                     tr.appendChild(tdMode);
 
-                    // SB Axles and Tolls (merge if all same within group)
+                    // SB Axles and Tolls (merge if all same)
                     if (allSBSame) {
-                        var tdSBAxles = document.createElement('td');
+                        const tdSBAxles = document.createElement('td');
+                        tdSBAxles.setAttribute('data-label', 'Axles (SB)');
                         if (rowspan > 1) tdSBAxles.setAttribute('rowspan', rowspan);
                         tdSBAxles.textContent = firstSBAxles;
                         tr.appendChild(tdSBAxles);
 
-                        var tdSBTolls = document.createElement('td');
+                        const tdSBTolls = document.createElement('td');
+                        tdSBTolls.setAttribute('data-label', 'Southbound Toll');
                         if (rowspan > 1) tdSBTolls.setAttribute('rowspan', rowspan);
                         tdSBTolls.textContent = firstSBTolls;
                         tr.appendChild(tdSBTolls);
                     }
                 }
 
-                // If SB is not merged, show SB columns for each row
+                // SB columns per row if not merged
                 if (!allSBSame) {
-                    var tdSBAxles = document.createElement('td');
-                    tdSBAxles.textContent = row['AxlesSouthbound'] || '—';
+                    const tdSBAxles = document.createElement('td');
+                    tdSBAxles.setAttribute('data-label', 'Axles (SB)');
+                    tdSBAxles.textContent = row['AxlesSouthbound'] || '\u2014';
                     tr.appendChild(tdSBAxles);
 
-                    var tdSBTolls = document.createElement('td');
-                    tdSBTolls.textContent = row['SouthboundTolls'] || '—';
+                    const tdSBTolls = document.createElement('td');
+                    tdSBTolls.setAttribute('data-label', 'Southbound Toll');
+                    tdSBTolls.textContent = row['SouthboundTolls'] || '\u2014';
                     tr.appendChild(tdSBTolls);
                 }
 
-                // NB Axles and Tolls (always shown for each row)
-                var tdNBAxles = document.createElement('td');
+                // NB columns (always per row)
+                const tdNBAxles = document.createElement('td');
                 tdNBAxles.className = 'tolls-col--nb-axles';
-                tdNBAxles.textContent = row['AxlesNorthbound'] || '—';
+                tdNBAxles.setAttribute('data-label', 'Axles (NB)');
+                tdNBAxles.textContent = row['AxlesNorthbound'] || '\u2014';
                 tr.appendChild(tdNBAxles);
 
-                var tdNBTolls = document.createElement('td');
+                const tdNBTolls = document.createElement('td');
                 tdNBTolls.className = 'tolls-col--nb-toll';
-                tdNBTolls.textContent = row['NorthboundTolls'] || '—';
+                tdNBTolls.setAttribute('data-label', 'Northbound Toll');
+                tdNBTolls.textContent = row['NorthboundTolls'] || '\u2014';
                 tr.appendChild(tdNBTolls);
 
                 tbody.appendChild(tr);
@@ -357,14 +296,10 @@
         });
 
         // Update "as of" note and source
-        var asOf = tollRows[0]['TollsAsOf'];
-        if (asOf) {
-            setText('tolls-as-of', asOf);
-        }
-        var sources = tollRows[0]['Sources'];
-        if (sources) {
-            setText('tolls-source', sources);
-        }
+        const asOf = tollRows[0]['TollsAsOf'];
+        if (asOf) setText('tolls-as-of', asOf);
+        const sources = tollRows[0]['Sources'];
+        if (sources) setText('tolls-source', sources);
     }
 
     // ==========================================
@@ -372,15 +307,47 @@
     // ==========================================
 
     function populateAlternateNames(info) {
-        var container = document.getElementById('alternate-names');
+        const container = document.getElementById('alternate-names');
         if (!container) return;
-        var raw = info['AlternateNames'] || '';
+        const raw = info['AlternateNames'] || '';
         if (!raw) {
             container.parentElement.style.display = 'none';
             return;
         }
-        var names = raw.split('|').map(function (n) { return n.trim(); }).filter(Boolean);
+        const names = raw.split('|').map(n => n.trim()).filter(Boolean);
         container.textContent = names.join(' \u2022 ');
+    }
+
+    // ==========================================
+    // DOM Population — Dynamic Assets
+    // ==========================================
+
+    function populateAssets(info) {
+        const bridgeName = info['Bridge-ENG'] || BRIDGE_ID;
+
+        // Map image
+        const mapImg = document.getElementById('bridge-map');
+        if (mapImg) {
+            setImageSource(mapImg, ASSET_FILES.map, 'Map showing the location of ' + bridgeName);
+        }
+
+        // Charts
+        const chart1 = document.getElementById('bridge-chart-1');
+        const chart2 = document.getElementById('bridge-chart-2');
+        if (chart1) {
+            setImageSource(chart1, ASSET_FILES.chart1, '2024 border crossings by mode at ' + bridgeName);
+        }
+        if (chart2) {
+            setImageSource(chart2, ASSET_FILES.chart2, 'Northbound border crossings 2014 to 2024 trend chart for ' + bridgeName);
+        }
+
+        // Gallery photos
+        const photos = document.querySelectorAll('.gallery-photo');
+        photos.forEach((img, i) => {
+            if (ASSET_FILES.photos[i]) {
+                setImageSource(img, ASSET_FILES.photos[i], img.alt || ('Photo of ' + bridgeName));
+            }
+        });
     }
 
     // ==========================================
@@ -388,10 +355,30 @@
     // ==========================================
 
     function setText(id, value) {
-        var el = document.getElementById(id);
-        if (el && value) {
-            el.textContent = value;
-        }
+        const el = document.getElementById(id);
+        if (el && value) el.textContent = value;
+    }
+
+    function setImageSource(img, src, altText) {
+        if (!img || !src) return;
+        img.src = src;
+        if (altText) img.alt = altText;
+        img.addEventListener('error', () => {
+            img.style.display = 'none';
+        }, { once: true });
+    }
+
+    // ==========================================
+    // PDF Download Button
+    // ==========================================
+
+    function initDownloadButton() {
+        const btn = document.getElementById('download-pdf-btn');
+        if (!btn) return;
+        btn.addEventListener('click', () => {
+            const queryBridge = encodeURIComponent(BRIDGE_ID);
+            window.open('pdf-templates/bridge-factsheet.html?bridge=' + queryBridge + '&download=true', '_blank');
+        });
     }
 
     // ==========================================
@@ -400,24 +387,26 @@
 
     function loadAll() {
         Promise.all([
-            fetch(FILES.info).then(function (r) { return r.text(); }),
-            fetch(FILES.modes).then(function (r) { return r.text(); }),
-            fetch(FILES.tolls).then(function (r) { return r.text(); })
-        ]).then(function (texts) {
-            var allInfo  = parseCSV(texts[0]);
-            var allModes = parseCSV(texts[1]);
-            var allTolls = parseCSV(texts[2]);
+            fetchText(FILES.info),
+            fetchText(FILES.modes),
+            fetchText(FILES.tolls)
+        ]).then(texts => {
+            const allInfo  = parseCSV(texts[0]);
+            const allModes = parseCSV(texts[1]);
+            const allTolls = parseCSV(texts[2]);
 
-            var infoRows  = filterByBridgeID(allInfo);
-            var modesRows = filterByBridgeID(allModes);
-            var tollRows  = filterByBridgeID(allTolls);
+            const infoRows  = filterByBridgeID(allInfo);
+            const modesRows = filterByBridgeID(allModes);
+            const tollRows  = filterByBridgeID(allTolls);
 
             if (infoRows.length === 0) {
                 console.error('bridge-loader: No data found for Bridge-ID "' + BRIDGE_ID + '"');
+                const loader = document.getElementById('page-loader');
+                if (loader) loader.textContent = 'No data found for this bridge. Please check the Bridge-ID.';
                 return;
             }
 
-            var info = infoRows[0];
+            const info = infoRows[0];
 
             // Populate simple data-field elements
             populateFields(info);
@@ -426,6 +415,7 @@
             populateOwnership(info);
             populateHighways(info);
             populateAlternateNames(info);
+            populateAssets(info);
 
             // Build dynamic tables
             buildHoursTable(modesRows);
@@ -434,17 +424,24 @@
             // Update page title
             document.title = info['Bridge-ENG'] + ' | Texas-Mexico Border Crossings Guide | TxDOT';
 
+            // Update download button aria-label with actual bridge name
+            const btn = document.getElementById('download-pdf-btn');
+            if (btn) btn.setAttribute('aria-label', 'Download fact sheet for ' + info['Bridge-ENG'] + ' as PDF');
+
             // Hide loading indicator
-            var loader = document.getElementById('page-loader');
+            const loader = document.getElementById('page-loader');
             if (loader) loader.style.display = 'none';
 
             // Show content
-            var content = document.getElementById('bridge-content');
+            const content = document.getElementById('bridge-content');
             if (content) content.style.opacity = '1';
 
-        }).catch(function (err) {
+            // Initialize PDF download button
+            initDownloadButton();
+
+        }).catch(err => {
             console.error('bridge-loader: Failed to load CSV data.', err);
-            var loader = document.getElementById('page-loader');
+            const loader = document.getElementById('page-loader');
             if (loader) {
                 loader.textContent = 'Failed to load bridge data. Please try refreshing the page.';
             }

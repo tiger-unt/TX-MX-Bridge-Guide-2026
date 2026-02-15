@@ -18,20 +18,11 @@
     <link rel="stylesheet" href="../page-previews/css/components.css?v=2">
 
     <!-- Bridge Page Styles -->
-    <link rel="stylesheet" href="css/bridge.css?v=7">
+    <link rel="stylesheet" href="css/bridge.css?v=8">
 
-    <!-- Inline overrides matching home-preview.html -->
-    <style>
-        .utility-bar { background-color: #dadee5 !important; color: var(--color-text) !important; }
-        .utility-bar__link,
-        .utility-bar__link:hover,
-        .lang-dropdown__toggle { color: var(--color-text) !important; }
-        .site-footer { background-color: #dadee5 !important; color: var(--color-text) !important; }
-        .site-footer__heading,
-        .site-footer__address a,
-        .site-footer__link-list a,
-        .site-footer__txdot-link { color: var(--color-text) !important; }
-    </style>
+    <!-- Print / PDF Styles -->
+    <link rel="stylesheet" href="../page-previews/css/print.css" media="print">
+
 </head>
 <body>
     <!-- Skip Link -->
@@ -209,7 +200,18 @@
         </div>
 
         <!-- Loading indicator -->
-        <div id="page-loader">Loading bridge data&hellip;</div>
+        <div id="page-loader" role="status" aria-live="polite">Loading bridge data&hellip;</div>
+
+        <!-- Print-only header (hidden on screen, shown in PDF) -->
+        <div class="bridge-print-header no-screen" aria-hidden="true">
+            <img class="bridge-print-header__logo"
+                 src="../assets/Logos/TxDOT-Logo-Vertical-RGB.svg"
+                 alt="">
+            <div class="bridge-print-header__text">
+                <strong>Texas-Mexico Border Crossings Guide</strong><br>
+                TxDOT International Trade and Border Planning
+            </div>
+        </div>
 
         <!-- Dynamic content (hidden until JS populates it) -->
         <div id="bridge-content">
@@ -223,11 +225,26 @@
                         <!-- Left: Bridge Info -->
                         <div class="bridge-hero__info">
                             <h2 class="bridge-hero__name-en" data-field="Bridge-ENG">Paso del Norte Bridge</h2>
-                            <p class="bridge-hero__name-es" data-field="Bridge-ESP">Puente Santa Fe</p>
+                            <p class="bridge-hero__name-es" data-field="Bridge-ESP" lang="es">Puente Santa Fe</p>
 
                             <div class="bridge-hero__meta">
                                 <span class="bridge-hero__badge" data-field="District">El Paso</span>
                                 <span class="bridge-hero__badge bridge-hero__badge--type" data-field="Type-Status">Highway Crossing</span>
+                            </div>
+
+                            <div class="bridge-hero__actions">
+                                <button type="button"
+                                        class="btn btn--secondary btn--sm bridge-hero__download"
+                                        id="download-pdf-btn"
+                                        aria-label="Download fact sheet as PDF">
+                                    <svg class="btn__icon" width="16" height="16" viewBox="0 0 24 24"
+                                         fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                        <polyline points="7 10 12 15 17 10"/>
+                                        <line x1="12" y1="15" x2="12" y2="3"/>
+                                    </svg>
+                                    Download Fact Sheet (PDF)
+                                </button>
                             </div>
 
                             <p class="bridge-hero__location">
@@ -240,15 +257,11 @@
                             </div>
 
                             <p class="bridge-hero__description" data-field="Description"></p>
-
-                            <p class="bridge-hero__opened">
-                                <strong>Bridge Opened:</strong> <span data-field="BridgeOpened"></span>
-                            </p>
                         </div>
 
                         <!-- Right: Map Image -->
                         <div class="bridge-hero__map">
-                            <img src="../assets/ELP-ELP-PASO/ELP-ELP-PASO_map.png" alt="Map showing the location of Paso del Norte Bridge between El Paso, Texas and Ciudad Ju&aacute;rez, Chihuahua" loading="lazy">
+                            <img id="bridge-map" src="" alt="" loading="lazy">
                         </div>
                     </div>
                 </div>
@@ -391,10 +404,10 @@
                     <h2 class="text-center mb-8">Crossing Data</h2>
                     <div class="charts-grid">
                         <div class="chart-card">
-                            <img src="../assets/ELP-ELP-PASO/ELP-ELP-PASO_chart_1.png" alt="2024 border crossings by mode at Paso del Norte Bridge — donut chart showing pedestrian, vehicle, and bus volumes" loading="lazy">
+                            <img id="bridge-chart-1" src="" alt="" loading="lazy">
                         </div>
                         <div class="chart-card">
-                            <img src="../assets/ELP-ELP-PASO/ELP-ELP-PASO_chart_2.png" alt="Northbound border crossings 2014 to 2024 trend chart for Paso del Norte Bridge" loading="lazy">
+                            <img id="bridge-chart-2" src="" alt="" loading="lazy">
                         </div>
                     </div>
                 </div>
@@ -408,22 +421,27 @@
                     <h2 class="text-center mb-8">Photo Gallery</h2>
                     <div class="gallery-grid">
                         <div class="gallery-grid__item">
-                            <img src="../assets/ELP-ELP-PASO/ELP-ELP-PASO_1.JPG" alt="Red X sculpture near the Paso del Norte Bridge" loading="lazy">
+                            <img class="gallery-photo" src="" alt="" loading="lazy">
                         </div>
                         <div class="gallery-grid__item">
-                            <img src="../assets/ELP-ELP-PASO/ELP-ELP-PASO_2.png" alt="Aerial view of Paso del Norte Bridge with traffic" loading="lazy">
+                            <img class="gallery-photo" src="" alt="" loading="lazy">
                         </div>
                         <div class="gallery-grid__item">
-                            <img src="../assets/ELP-ELP-PASO/ELP-ELP-PASO_3.JPG" alt="Paso del Norte port of entry building" loading="lazy">
+                            <img class="gallery-photo" src="" alt="" loading="lazy">
                         </div>
                         <div class="gallery-grid__item">
-                            <img src="../assets/ELP-ELP-PASO/ELP-ELP-PASO_5.jpg" alt="Panoramic view of the Paso del Norte Bridge with flags" loading="lazy">
+                            <img class="gallery-photo" src="" alt="" loading="lazy">
                         </div>
                     </div>
                 </div>
             </section>
 
         </div><!-- end #bridge-content -->
+
+        <!-- Print-only footer (hidden on screen, shown in PDF) -->
+        <div class="bridge-print-footer no-screen" aria-hidden="true">
+            Texas Department of Transportation | txdot.gov | 2026 Texas-Mexico Border Crossings Guide
+        </div>
     </main>
 
     <!-- ========================================
@@ -470,6 +488,7 @@
 
     <!-- Bridge Data Loader -->
     <script>window.BRIDGE_ID = "ELP-ELP-PASO";</script>
-    <script src="js/bridge-loader.js?v=2"></script>
+    <script src="js/csv-utils.js"></script>
+    <script src="js/bridge-loader.js?v=3"></script>
 </body>
 </html>

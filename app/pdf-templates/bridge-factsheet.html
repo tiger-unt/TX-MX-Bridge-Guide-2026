@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bridge Fact Sheet — PDF Preview</title>
+
+    <!-- TxDOT Brand Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Fact Sheet Styles -->
+    <link rel="stylesheet" href="css/factsheet.css">
+
+    <!-- PDF Generation (html2canvas + jsPDF bundle) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+<body class="fs-loading">
+
+    <div id="fs-loader">Loading bridge data&hellip;</div>
+
+    <!-- =====================================================================
+         PAGE 1 — Hero / Overview
+         ===================================================================== -->
+    <div class="page page-1">
+        <div class="page__inner">
+            <div class="p1-header">
+                <img class="p1-logo" src="../../assets/Logos/TxDOT-Logo-Vertical-RGB.svg" alt="TxDOT">
+            </div>
+
+            <div class="p1-layout">
+                <!-- Left: Title block + info -->
+                <div class="p1-left">
+                    <div class="p1-title-block">
+                        <span class="p1-title-block__subtitle">Border Crossing Facts</span>
+                        <h1 class="p1-title-block__name-en" id="fs-name-en">&mdash;</h1>
+                        <p class="p1-title-block__name-es" id="fs-name-es">&mdash;</p>
+                    </div>
+                    <div class="p1-info">
+                        <p class="p1-info__location">
+                            <span class="p1-info__label">Location</span>
+                            <span id="fs-location">&mdash;</span>
+                        </p>
+                        <p class="p1-info__alt-names">
+                            <span class="p1-info__label">Alternate Names</span>
+                            <span id="fs-alt-names">&mdash;</span>
+                        </p>
+                        <hr class="p1-info__divider">
+                        <p class="p1-info__description" id="fs-description">&mdash;</p>
+                    </div>
+                </div>
+
+                <!-- Right: Maps -->
+                <div class="p1-maps">
+                    <div class="p1-maps__regional">
+                        <img id="fs-map-regional" src="" alt="Regional map">
+                    </div>
+                    <div class="p1-maps__local">
+                        <img id="fs-map-local" src="" alt="Local map">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="page__stripe"></div>
+    </div>
+
+    <!-- =====================================================================
+         PAGE 2 — Bridge Details
+         ===================================================================== -->
+    <div class="page page-2">
+        <div class="page__inner">
+            <div class="p2-layout">
+
+                <!-- Left column: Highways, Facilities, Lanes -->
+                <div class="p2-left">
+                    <h2 class="p2-section-title">Connection to Major Highways</h2>
+                    <p class="p2-left__text">
+                        <strong>IN THE U.S.:</strong> <span id="fs-highway-us">&mdash;</span>
+                    </p>
+                    <p class="p2-left__text">
+                        <strong>IN MEXICO:</strong> <span id="fs-highway-mx">&mdash;</span>
+                    </p>
+
+                    <h2 class="p2-section-title p2-section-title--spaced">Inspection Facilities</h2>
+                    <p class="p2-left__text" id="fs-facilities">&mdash;</p>
+
+                    <h2 class="p2-section-title p2-section-title--spaced">Inspection Lanes</h2>
+                    <div id="fs-lanes"></div>
+                </div>
+
+                <!-- Middle column: Hours, Photo, Callout -->
+                <div class="p2-mid">
+                    <h2 class="p2-section-title">Hours of Operation<br>
+                        <span style="font-size:7.5pt;font-weight:400;text-transform:none">(CBP &amp; ADUANAS Facilities)</span>
+                    </h2>
+                    <table class="p2-hours-table">
+                        <tbody id="fs-hours-body"></tbody>
+                    </table>
+                    <p class="p2-source" id="fs-hours-source"></p>
+
+                    <div class="p2-mid__photo">
+                        <img id="fs-photo-mid" src="" alt="Bridge photo">
+                    </div>
+
+                    <div class="p2-callout">
+                        <span class="p2-callout__label">Did you know?</span>
+                        <p class="p2-callout__text" id="fs-callout">&mdash;</p>
+                    </div>
+                </div>
+
+                <!-- Right column: Toll Rates, Photo -->
+                <div class="p2-right">
+                    <h2 class="p2-toll-title" id="fs-toll-title">Toll Rates</h2>
+                    <table class="p2-toll-table">
+                        <thead>
+                            <tr>
+                                <th style="width:28px"></th>
+                                <th></th>
+                                <th class="col-sb">Southbound</th>
+                                <th class="col-nb">Northbound</th>
+                            </tr>
+                        </thead>
+                        <tbody id="fs-tolls-body"></tbody>
+                    </table>
+                    <p class="p2-toll-source" id="fs-toll-source"></p>
+
+                    <div class="p2-right__photo">
+                        <img id="fs-photo-right" src="" alt="Bridge facility">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="page__stripe"></div>
+    </div>
+
+    <!-- =====================================================================
+         PAGE 3 — Data Visualizations & Photos
+         ===================================================================== -->
+    <div class="page page-3">
+        <div class="page__inner">
+            <div class="p3-layout">
+                <!-- Charts (left) -->
+                <div class="p3-charts">
+                    <div class="p3-chart-block">
+                        <h2 class="p3-chart-title">2024 Northbound Crossings, by Mode</h2>
+                        <img id="fs-chart-1" src="" alt="Crossings by mode donut chart">
+                    </div>
+                    <div class="p3-chart-block">
+                        <h2 class="p3-chart-title">Northbound Crossings, 2014&ndash;2024</h2>
+                        <img id="fs-chart-2" src="" alt="Crossings trend chart">
+                    </div>
+                    <p class="p3-chart-source">Source for all figures on this page: U.S. Customs &amp; Border Protection</p>
+                </div>
+
+                <!-- Photos (right, spanning both rows) -->
+                <div class="p3-photos-right">
+                    <div class="p3-photos-right__item">
+                        <img id="fs-photo-3a" src="" alt="Bridge photo">
+                    </div>
+                    <div class="p3-photos-right__item">
+                        <img id="fs-photo-3b" src="" alt="Bridge photo">
+                    </div>
+                </div>
+
+                <!-- Panoramic (bottom-left) -->
+                <div class="p3-panoramic">
+                    <img id="fs-photo-panoramic" src="" alt="Panoramic bridge view">
+                </div>
+            </div>
+        </div>
+        <div class="page__stripe"></div>
+    </div>
+
+    <!-- =====================================================================
+         DATA LOADER
+         Reads CSV data and populates the fact sheet.
+         Usage: bridge-factsheet.html?bridge=ELP-ELP-PASO
+         ===================================================================== -->
+    <script src="../js/csv-utils.js"></script>
+    <script>
+    (function () {
+        'use strict';
+
+        const { parseCSV, getModeIcon, escHTML, fetchText, sanitizeBridgeID } = window.CSVUtils;
+
+        // Bridge ID from URL or default
+        const params = new URLSearchParams(window.location.search);
+        const BRIDGE_ID = sanitizeBridgeID(params.get('bridge'), 'ELP-ELP-PASO');
+
+        const CSV_BASE   = '../../Data/';
+        const ASSET_BASE = '../../assets/' + BRIDGE_ID + '/';
+        const ICON_BASE  = '../../assets/icons/';
+
+        // ======================
+        // Page 1 — Overview
+        // ======================
+        function populatePage1(info) {
+            const bridgeName = info['Bridge-ENG'] || BRIDGE_ID;
+            document.getElementById('fs-name-en').textContent = info['Bridge-ENG'] || '';
+            document.getElementById('fs-name-es').textContent = info['Bridge-ESP'] || '';
+            document.getElementById('fs-location').textContent = info['Location'] || '';
+
+            // Alternate names
+            const altRaw = info['AlternateNames'] || '';
+            if (altRaw) {
+                const names = altRaw.split('|').map(n => n.trim()).filter(Boolean);
+                document.getElementById('fs-alt-names').textContent = names.join(' \u2022 ');
+            }
+
+            // Description — bold first sentence
+            const desc = info['Description'] || '';
+            const descEl = document.getElementById('fs-description');
+            const dot = desc.indexOf('.');
+            if (dot > 0 && dot < desc.length - 1) {
+                descEl.innerHTML = '<span class="p1-info__description-lead">'
+                    + escHTML(desc.substring(0, dot + 1)) + '</span> '
+                    + escHTML(desc.substring(dot + 1).trim());
+            } else {
+                descEl.textContent = desc;
+            }
+
+            // Maps — use the one map image we have for both slots
+            const mapSrc = ASSET_BASE + BRIDGE_ID + '_map.png';
+            setImageSource('fs-map-regional', mapSrc, 'Regional map for ' + bridgeName);
+            setImageSource('fs-map-local', mapSrc, 'Local map for ' + bridgeName);
+
+            // Page title
+            document.title = info['Bridge-ENG'] + ' \u2014 Fact Sheet | TxDOT';
+        }
+
+        // ======================
+        // Page 2 — Details
+        // ======================
+        function populatePage2(info, modesRows, tollRows) {
+            const bridgeName = info['Bridge-ENG'] || BRIDGE_ID;
+            // -- Highways --
+            setText('fs-highway-us', info['Connection-to-Major-Highways-US']);
+            setText('fs-highway-mx', info['Connection-to-Major Highways-MX']);
+
+            // -- Facilities --
+            setText('fs-facilities', info['InspectionFacility-BorderStation']);
+
+            // -- Inspection Lanes --
+            const lanesEl = document.getElementById('fs-lanes');
+            if (modesRows.length === 0) {
+                lanesEl.textContent = 'No lane data available.';
+            }
+            modesRows.forEach(row => {
+                const count = row['InspectionLanes'] || '';
+                const notes = row['InspectionLaneNotes'] || '';
+                const mode  = row['Modes'] || '';
+                if (!count) return;
+                const div = document.createElement('div');
+                div.className = 'p2-lane-item';
+                div.innerHTML = '<span class="p2-lane-count">' + escHTML(count) + '</span> '
+                    + '<span class="p2-lane-type">' + escHTML(mode) + ' Lanes</span>'
+                    + (notes ? '<br><span class="p2-lane-note">' + escHTML(notes) + '</span>' : '');
+                lanesEl.appendChild(div);
+            });
+
+            // -- Hours of Operation --
+            const hoursTbody = document.getElementById('fs-hours-body');
+            if (modesRows.length === 0) {
+                const tr = document.createElement('tr');
+                const td = document.createElement('td');
+                td.colSpan = 2;
+                td.textContent = 'No hours data available.';
+                td.style.textAlign = 'center';
+                tr.appendChild(td);
+                hoursTbody.appendChild(tr);
+            }
+            modesRows.forEach(row => {
+                const tr = document.createElement('tr');
+                const tdMode = document.createElement('td');
+                tdMode.textContent = row['Modes'] || '';
+                const tdHours = document.createElement('td');
+                const cbp = row['Hours-of-Operation--CBP-Facilities'] || '';
+                const aduanas = row['Hours-of-Operation--ADUANAS-Facilities'] || '';
+                if (cbp && aduanas && cbp === aduanas) {
+                    tdHours.textContent = cbp;
+                } else if (cbp && aduanas) {
+                    tdHours.textContent = cbp + ' / ' + aduanas;
+                } else {
+                    tdHours.textContent = cbp || aduanas || '\u2014';
+                }
+                tr.appendChild(tdMode);
+                tr.appendChild(tdHours);
+                hoursTbody.appendChild(tr);
+            });
+
+            const asOf = modesRows[0] ? modesRows[0]['HOO-As-of'] : '';
+            document.getElementById('fs-hours-source').innerHTML =
+                (asOf ? 'As of ' + escHTML(asOf) + '<br>' : '')
+                + '<em>Source: U.S. Customs &amp; Border Protection, Agencia Nacional de Aduanas de M\u00e9xico (ANAM)</em>';
+
+            // -- Callout --
+            setText('fs-callout', info['DidYouKnow']);
+
+            // -- Toll title --
+            document.getElementById('fs-toll-title').textContent =
+                (info['Bridge-ENG'] || '') + ' Toll Rates';
+
+            // -- Toll table --
+            buildTollTable(tollRows);
+
+            // -- Photos --
+            setImageSource('fs-photo-mid', ASSET_BASE + BRIDGE_ID + '_2.png', 'Photo of ' + bridgeName);
+            setImageSource('fs-photo-right', ASSET_BASE + BRIDGE_ID + '_3.JPG', 'Bridge facility at ' + bridgeName);
+        }
+
+        function buildTollTable(tollRows) {
+            const tbody = document.getElementById('fs-tolls-body');
+            if (tollRows.length === 0) {
+                const tr = document.createElement('tr');
+                const td = document.createElement('td');
+                td.colSpan = 4;
+                td.textContent = 'No toll data available.';
+                td.style.textAlign = 'center';
+                tr.appendChild(td);
+                tbody.appendChild(tr);
+                document.getElementById('fs-toll-source').textContent = '';
+                return;
+            }
+
+            // Group by mode for rowspan
+            const groups = [];
+            let curMode = null;
+            let curGroup = [];
+            tollRows.forEach(row => {
+                const mode = row['Modes'] || '';
+                if (mode !== curMode) {
+                    if (curGroup.length) groups.push({ mode: curMode, rows: curGroup });
+                    curMode = mode;
+                    curGroup = [row];
+                } else {
+                    curGroup.push(row);
+                }
+            });
+            if (curGroup.length) groups.push({ mode: curMode, rows: curGroup });
+
+            // "as of" row
+            const tollAsOf = tollRows[0] ? tollRows[0]['TollsAsOf'] : '';
+            if (tollAsOf) {
+                const asTr = document.createElement('tr');
+                asTr.innerHTML = '<td colspan="4" style="font-size:7pt;color:#999;font-style:italic;border-bottom:none;padding-bottom:2px">as of ' + escHTML(tollAsOf) + '</td>';
+                tbody.appendChild(asTr);
+            }
+
+            groups.forEach(group => {
+                const iconPath = getModeIcon(group.mode, ICON_BASE);
+                const rowspan = group.rows.length;
+
+                group.rows.forEach((row, idx) => {
+                    const tr = document.createElement('tr');
+
+                    // Icon + Mode (only on first row of group)
+                    if (idx === 0) {
+                        const tdIcon = document.createElement('td');
+                        if (rowspan > 1) tdIcon.setAttribute('rowspan', rowspan);
+                        if (iconPath) {
+                            tdIcon.innerHTML = '<img class="mode-icon" src="' + escHTML(iconPath) + '" alt="">';
+                        }
+                        tr.appendChild(tdIcon);
+
+                        const tdMode = document.createElement('td');
+                        tdMode.className = 'mode-name';
+                        if (rowspan > 1) tdMode.setAttribute('rowspan', rowspan);
+                        tdMode.textContent = group.mode;
+                        tr.appendChild(tdMode);
+                    }
+
+                    // Southbound
+                    const tdSB = document.createElement('td');
+                    const sb = row['SouthboundTolls'] || '';
+                    const sbAxles = row['AxlesSouthbound'] || '';
+                    if (sb) {
+                        tdSB.innerHTML = (sbAxles ? '<span class="toll-note">' + escHTML(sbAxles) + '</span> ' : '') + escHTML(sb);
+                    } else {
+                        tdSB.innerHTML = '<span class="toll-na">\u2014</span>';
+                    }
+                    tr.appendChild(tdSB);
+
+                    // Northbound
+                    const tdNB = document.createElement('td');
+                    tdNB.className = 'toll-amount';
+                    const nb = row['NorthboundTolls'] || '';
+                    const nbAxles = row['AxlesNorthbound'] || '';
+                    if (nb) {
+                        tdNB.innerHTML = (nbAxles ? '<span class="toll-note">' + escHTML(nbAxles) + '</span> ' : '') + escHTML(nb);
+                    } else {
+                        tdNB.textContent = '\u2014';
+                    }
+                    tr.appendChild(tdNB);
+
+                    tbody.appendChild(tr);
+                });
+            });
+
+            // Source
+            const sources = tollRows[0] ? tollRows[0]['Sources'] : '';
+            document.getElementById('fs-toll-source').textContent =
+                (sources ? 'Sources: ' + sources : '');
+        }
+
+        // ======================
+        // Page 3 — Charts & Photos
+        // ======================
+        function populatePage3() {
+            setImageSource('fs-chart-1', ASSET_BASE + BRIDGE_ID + '_chart_1.png', 'Northbound crossings by mode chart');
+            setImageSource('fs-chart-2', ASSET_BASE + BRIDGE_ID + '_chart_2.png', 'Northbound crossings trend chart from 2014 to 2024');
+            setImageSource('fs-photo-3a', ASSET_BASE + BRIDGE_ID + '_2.png', 'Bridge photo');
+            setImageSource('fs-photo-3b', ASSET_BASE + BRIDGE_ID + '_1.JPG', 'Bridge photo');
+            setImageSource('fs-photo-panoramic', ASSET_BASE + BRIDGE_ID + '_5.jpg', 'Panoramic bridge view');
+        }
+
+        // ======================
+        // Helpers
+        // ======================
+        function setText(id, value) {
+            const el = document.getElementById(id);
+            if (el && value) el.textContent = value;
+        }
+
+        function setImageSource(id, src, altText) {
+            const img = document.getElementById(id);
+            if (!img || !src) return;
+            img.src = src;
+            if (altText) img.alt = altText;
+            img.addEventListener('error', () => {
+                img.style.visibility = 'hidden';
+            }, { once: true });
+        }
+
+        // ======================
+        // PDF Generation
+        // ======================
+        function waitForImages() {
+            const images = document.querySelectorAll('img[src]');
+            const promises = [];
+            images.forEach(img => {
+                if (img.src && !img.complete) {
+                    promises.push(new Promise(resolve => {
+                        img.addEventListener('load', resolve);
+                        img.addEventListener('error', resolve);
+                    }));
+                }
+            });
+            return Promise.all(promises);
+        }
+
+        function generatePDF() {
+            // Strip preview chrome so capture is clean
+            document.body.style.background = '#fff';
+            document.body.style.padding = '0';
+            document.querySelectorAll('.page').forEach(p => {
+                p.style.boxShadow = 'none';
+                p.style.margin = '0';
+            });
+
+            const pages = document.querySelectorAll('.page');
+            const opt = {
+                margin: 0,
+                filename: BRIDGE_ID + '-factsheet.pdf',
+                image: { type: 'jpeg', quality: 0.95 },
+                html2canvas: { scale: 2, useCORS: true, logging: false },
+                jsPDF: { unit: 'in', format: 'letter', orientation: 'landscape' }
+            };
+
+            // Build multi-page PDF: render each .page div as its own PDF page
+            let worker = html2pdf().set(opt)
+                .from(pages[0]).toContainer().toCanvas().toPdf();
+
+            for (let i = 1; i < pages.length; i++) {
+                ((page) => {
+                    worker = worker
+                        .get('pdf').then(pdf => { pdf.addPage(); })
+                        .from(page).toContainer().toCanvas().toPdf();
+                })(pages[i]);
+            }
+
+            // Open the generated PDF in this tab
+            worker.output('bloburl').then(url => {
+                window.location.href = url;
+            });
+        }
+
+        // ======================
+        // Main
+        // ======================
+        const shouldDownload = params.get('download') === 'true';
+
+        Promise.all([
+            fetchText(CSV_BASE + 'border-info-eng.csv'),
+            fetchText(CSV_BASE + 'modes-info.csv'),
+            fetchText(CSV_BASE + 'modes-tolls.csv')
+        ]).then(texts => {
+            const allInfo  = parseCSV(texts[0]);
+            const allModes = parseCSV(texts[1]);
+            const allTolls = parseCSV(texts[2]);
+
+            const infoRows  = allInfo.filter(r => r['Bridge-ID'] === BRIDGE_ID);
+            const modesRows = allModes.filter(r => r['Bridge-ID'] === BRIDGE_ID);
+            const tollRows  = allTolls.filter(r => r['Bridge-ID'] === BRIDGE_ID);
+
+            if (infoRows.length === 0) {
+                document.getElementById('fs-loader').innerHTML =
+                    'No data found for bridge: <strong>' + escHTML(BRIDGE_ID) + '</strong>';
+                return;
+            }
+
+            populatePage1(infoRows[0]);
+            populatePage2(infoRows[0], modesRows, tollRows);
+            populatePage3();
+
+            // Show pages, hide loader
+            document.body.classList.remove('fs-loading');
+            const loader = document.getElementById('fs-loader');
+            if (loader) loader.style.display = 'none';
+
+            // If download mode, wait for images then generate PDF
+            if (shouldDownload) {
+                waitForImages().then(() => { generatePDF(); });
+            }
+        }).catch(err => {
+            console.error('Fact sheet loader failed:', err);
+            document.getElementById('fs-loader').innerHTML =
+                '<span style="color:red">Failed to load data. Make sure the dev server is running.</span>';
+        });
+    })();
+    </script>
+
+</body>
+</html>
