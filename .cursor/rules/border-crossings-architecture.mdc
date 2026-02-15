@@ -7,7 +7,17 @@ alwaysApply: true
 
 **Project Overview:** Automated website + PDF generation system for Texas-Mexico international border crossings guide. Replaces manual ArcGIS StoryMap workflow with single source of truth approach.
 
-**Full Plan Reference:** See `WEBSITE_DEVELOPMENT_PLAN.md` for complete details, timeline, and implementation phases.
+**Full Plan Reference:** See `Project_Plan/WEBSITE_DEVELOPMENT_PLAN.md` for complete details, timeline, and implementation phases.
+
+## Project Structure
+
+| Folder | Purpose |
+|--------|---------|
+| `Project_Plan/` | Development plan, process diagrams, planning docs |
+| `Data/` | Border crossing source data. Main CSVs: `border-info-eng.csv` (crossing details, descriptions), `modes-info.csv` (hours, lanes per mode), `modes-tolls.csv` (tolls per mode). `Data/metadata/` has column dictionaries and lookup tables (crossings-dict, TxDOT-districts-dict, ports-of-entry-dict). |
+| `Ref_Storymaps/` | Reference StoryMap content and analysis |
+| `assets/` | Images, logos, graphics |
+| `page-previews/` | HTML/CSS/JS for page templates and previews |
 
 ## Core Architecture Principle
 
@@ -19,9 +29,11 @@ alwaysApply: true
    - Web Developer updates in AGOL portal
    - Changes appear instantly (no deployment needed)
 
-2. **CSV File** - Structured border crossing data (30+ bilingual columns)
-   - Names, coordinates, statistics, hours, tolls, descriptions
-   - Generates individual crossing pages and PDFs
+2. **CSV Files** - Structured border crossing data (split by concern)
+   - `border-info-eng.csv`: Names (EN/ES), location, ownership, descriptions, Bridge-ID
+   - `modes-info.csv`: Inspection lanes, hours of operation, CBP/ADUANAS links (rows per mode)
+   - `modes-tolls.csv`: Toll amounts by mode and axle (rows per mode/vehicle type)
+   - Join key: Bridge-ID. Generates individual crossing pages and PDFs
    - Content Manager edits in SharePoint Excel
 
 3. **Markdown Files** - Long-form narrative content

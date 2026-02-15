@@ -1,0 +1,13 @@
+#,Column Header,Description
+1,Bridge-ID,"Unique alphanumeric identifier for each crossing, encoding district, port of entry, and bridge abbreviation."
+2,Bridge,Official English name of the border crossing or bridge.
+3,Modes,"Type of crossing mode available at the bridge (e.g., Pedestrians/Bicyclists, Passenger Vehicles, Commercial Vehicles, Cargo/Rail)."
+4,InspectionLanes,Number of northbound inspection lanes available at U.S. CBP facilities for the given crossing mode.
+5,InspectionLaneNotes,"Additional details about inspection lanes, such as Ready Lane or SENTRI Lane availability for pre-approved travelers with RFID-enabled identification."
+6,UnifiedCargoProcessing-UPC,"Indicates whether the crossing participates in Unified Cargo Processing, a joint U.S.–Mexico inspection program for commercial shipments."
+7,Hours-of-Operation--CBP-Facilities,Operating hours for U.S. Customs and Border Protection (CBP) facilities at the crossing for the given mode.
+8,Hours-of-Operation--ADUANAS-Facilities,Operating hours for Mexican customs (ADUANAS/ANAM) facilities at the crossing for the given mode.
+9,HOO-As-of,Date indicating when the hours-of-operation information was last verified or updated.
+10,Source,"Name(s) of the authoritative source(s) providing the hours-of-operation data (e.g., U.S. Customs & Border Protection, Agencia Nacional de Aduanas de México)."
+11,Link-to-HOO-Reference_TX,URL linking to the U.S. (Texas-side) reference page for the crossing's hours-of-operation information.
+12,Link-to-HOO-Reference_MX,URL or reference name linking to the Mexican-side source page for the crossing's hours-of-operation information.

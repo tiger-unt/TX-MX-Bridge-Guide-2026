@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Texas-Mexico Border Crossings Guide | TxDOT</title>
+    <meta name="description" content="Comprehensive guide to Texas-Mexico international border crossings, providing bilingual information on trade, travel, and crossing operations.">
+    
+    <!-- TxDOT Brand Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="css/variables.css?v=2">
+    <link rel="stylesheet" href="css/base.css?v=2">
+    <link rel="stylesheet" href="css/layout.css?v=2">
+    <link rel="stylesheet" href="css/components.css?v=2">
+    <!-- Inline override for background colors -->
+    <style>
+        .utility-bar { background-color: #dadee5 !important; color: var(--color-text) !important; }
+        .utility-bar__link,
+        .utility-bar__link:hover,
+        .lang-dropdown__toggle { color: var(--color-text) !important; }
+        .site-footer { background-color: #dadee5 !important; color: var(--color-text) !important; }
+        .site-footer__heading,
+        .site-footer__address a,
+        .site-footer__link-list a,
+        .site-footer__txdot-link { color: var(--color-text) !important; }
+    </style>
+</head>
+<body>
+    <!-- Skip Link -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Utility Bar -->
+    <div class="utility-bar">
+        <div class="utility-bar__container">
+            <nav class="utility-bar__nav" aria-label="Utility navigation">
+                <ul class="utility-bar__list">
+                    <li class="utility-bar__item">
+                        <a href="contact.html" class="utility-bar__link">
+                            Contact us <span class="utility-bar__arrow">»</span>
+                        </a>
+                    </li>
+                    <li class="utility-bar__item utility-bar__item--lang">
+                        <div class="lang-dropdown">
+                            <button class="lang-dropdown__toggle" aria-expanded="false" aria-haspopup="true" id="lang-toggle">
+                                <svg class="lang-dropdown__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="2" y1="12" x2="22" y2="12"/>
+                                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                                </svg>
+                                <span class="lang-dropdown__current">English</span>
+                                <svg class="lang-dropdown__chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="6 9 12 15 18 9"/>
+                                </svg>
+                            </button>
+                            <ul class="lang-dropdown__menu" role="menu" id="lang-menu">
+                                <li role="none">
+                                    <a href="index.html" role="menuitem" class="lang-dropdown__option lang-dropdown__option--active" aria-current="true">English</a>
+                                </li>
+                                <li role="none">
+                                    <a href="index-es.html" role="menuitem" class="lang-dropdown__option">Español</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="site-header">
+        <div class="site-header__container">
+            <div class="site-header__brand">
+                <a href="https://www.txdot.gov/" class="site-header__logo-link" target="_blank" rel="noopener noreferrer">
+                    <img class="site-header__logo" src="../assets/Logos/TxDOT-Logo-Vertical-RGB.svg" alt="TxDOT - Texas Department of Transportation" width="70" height="70">
+                </a>
+                <div class="site-header__title-group">
+                    <a href="index.html" class="site-header__title-link">
+                        <h1 class="site-header__title">Texas-Mexico Border Crossings Guide</h1>
+                        <p class="site-header__subtitle">International Trade and Border Planning Branch | Texas Department of Transportation</p>
+                    </a>
+                </div>
+            </div>
+            <div class="site-header__search">
+                <form class="search-form" action="search.html" method="GET" role="search">
+                    <label for="site-search" class="visually-hidden">Search site</label>
+                    <div class="search-form__wrapper">
+                        <input type="search" id="site-search" name="q" class="search-form__input" placeholder="Search..." autocomplete="off">
+                        <button type="submit" class="search-form__button" aria-label="Search">
+                            <svg class="search-form__icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="11" cy="11" r="8"/>
+                                <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                            </svg>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="main-nav" aria-label="Main navigation">
+        <div class="main-nav__container">
+            <button class="main-nav__toggle" aria-expanded="false" aria-controls="main-menu" id="nav-toggle">
+                <span class="main-nav__toggle-icon"></span>
+                <span class="visually-hidden">Menu</span>
+            </button>
+            <ul class="main-nav__menu" id="main-menu" role="menubar">
+                <li class="main-nav__item" role="none">
+                    <a href="index.html" class="main-nav__link main-nav__link--active" role="menuitem">Home</a>
+                </li>
+                <li class="main-nav__item main-nav__item--has-dropdown" role="none">
+                    <a href="el-paso.html" class="main-nav__link" role="menuitem" aria-haspopup="true" aria-expanded="false">
+                        El Paso
+                        <svg class="main-nav__chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                    </a>
+                    <div class="main-nav__dropdown" role="menu">
+                        <div class="main-nav__dropdown-content">
+                            <div class="main-nav__dropdown-header">
+                                <h3 class="main-nav__dropdown-title">El Paso Region</h3>
+                                <p class="main-nav__dropdown-desc">10 operational border crossings including bridges for pedestrians, vehicles, and commercial freight.</p>
+                            </div>
+                            <a href="el-paso.html" class="main-nav__dropdown-cta">
+                                View El Paso Region
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                            </a>
+                        </div>
+                    </div>
+                </li>
+                <li class="main-nav__item main-nav__item--has-dropdown" role="none">
+                    <a href="laredo.html" class="main-nav__link" role="menuitem" aria-haspopup="true" aria-expanded="false">
+                        Laredo
+                        <svg class="main-nav__chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                    </a>
+                    <div class="main-nav__dropdown" role="menu">
+                        <div class="main-nav__dropdown-content">
+                            <div class="main-nav__dropdown-header">
+                                <h3 class="main-nav__dropdown-title">Laredo Region</h3>
+                                <p class="main-nav__dropdown-desc">10 operational border crossings. Port of Laredo is #1 in the U.S. by trade value.</p>
+                            </div>
+                            <a href="laredo.html" class="main-nav__dropdown-cta">
+                                View Laredo Region
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                            </a>
+                        </div>
+                    </div>
+                </li>
+                <li class="main-nav__item main-nav__item--has-dropdown" role="none">
+                    <a href="rio-grande-valley.html" class="main-nav__link" role="menuitem" aria-haspopup="true" aria-expanded="false">
+                        Rio Grande Valley
+                        <svg class="main-nav__chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                    </a>
+                    <div class="main-nav__dropdown" role="menu">
+                        <div class="main-nav__dropdown-content">
+                            <div class="main-nav__dropdown-header">
+                                <h3 class="main-nav__dropdown-title">Rio Grande Valley Region</h3>
+                                <p class="main-nav__dropdown-desc">14 operational border crossings, the most diverse of any Texas border region.</p>
+                            </div>
+                            <a href="rio-grande-valley.html" class="main-nav__dropdown-cta">
+                                View Rio Grande Valley Region
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                            </a>
+                        </div>
+                    </div>
+                </li>
+                <li class="main-nav__item" role="none">
+                    <a href="about.html" class="main-nav__link" role="menuitem">About</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main id="main-content" class="main-content">
+        <!-- Hero Section -->
+        <section class="hero hero--lg" style="background-image: url('../assets/Transition-Images/CoverImage_v1.png');">
+            <div class="hero__content">
+                <div class="hero__card">
+                    <h2 class="hero__title">Texas-Mexico International Border Crossings</h2>
+                    <p class="hero__subtitle">Connecting People and Goods Across the Texas-Mexico Border: A Guide to the State's Border Crossings</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Introduction -->
+        <section class="section">
+            <div class="container">
+                <div class="content-narrow">
+                    <p class="text-lead">This guide provides information about the importance of the Texas-Mexico border and the border crossings in three regions (El Paso, Laredo, and Rio Grande Valley). It presents trade and crossing volume data at two levels: (1) district aggregate totals showing total trade and crossing volumes for each region, and (2) individual crossing details for each Port of Entry and bridge.</p>
+                    <p class="text-lead">The data covers trends in cross-border trade (by commercial truck and rail) and travel (by passenger vehicle, bus, and as a pedestrian/bicyclist) for the period 2014 to 2024, along with information on planned future international bridges and border crossings.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Texas-Mexico Border Overview -->
+        <section class="section section--alt">
+            <div class="container">
+                <div class="text-center mb-8">
+                    <h2>Texas-Mexico Border</h2>
+                </div>
+                <div class="text-center mb-8">
+                    <img src="../assets/images/Border-intro.svg" alt="Texas-Mexico border region overview" class="border-intro-image">
+                </div>
+                <div class="content-narrow mb-8">
+                    <p>Texas shares a <strong>1,254-mile land border</strong> with <strong>four Mexican states</strong> (Chihuahua, Coahuila, Nuevo Le&oacute;n, and Tamaulipas), alongside a robust border infrastructure that facilitates and enhances the movement of people and goods through <strong>34 operational border crossings</strong> within <strong>12 ports of entry</strong> in Texas.</p>
+                </div>
+                <div class="grid grid--4">
+                    <div class="stat-card">
+                        <div class="stat-card__value">1,254</div>
+                        <div class="stat-card__label">Miles of Border</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card__value">4</div>
+                        <div class="stat-card__label">Mexican States</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card__value">34</div>
+                        <div class="stat-card__label">Operational Crossings</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card__value">12</div>
+                        <div class="stat-card__label">Ports of Entry</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Regions Section -->
+        <section id="regions" class="section">
+            <div class="container">
+                <div class="text-center mb-12">
+                    <h2>Three Border Regions</h2>
+                    <p class="text-muted" style="max-width: 700px; margin: var(--space-4) auto 0;">
+                        In Texas, border crossings are organized into three regions, each with unique trade and infrastructure characteristics.
+                    </p>
+                </div>
+                <div class="grid grid--3">
+                    <!-- El Paso -->
+                    <article class="region-card">
+                        <div class="region-card__image-wrapper">
+                            <img src="../assets/Transition-Images/ELP Region Photo.jpg" alt="El Paso region border crossing" class="region-card__image" loading="lazy">
+                        </div>
+                        <div class="region-card__content">
+                            <h3 class="region-card__title">El Paso Region</h3>
+                            <p class="region-card__description">Four ports of entry with 10 operational border crossings and two airports. Seven crossings process pedestrians/bicyclists, seven process passenger vehicles, five process buses, four process commercial trucks, and two process railcars.</p>
+                            <a href="el-paso.html" class="region-card__link">
+                                Explore El Paso
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                            </a>
+                        </div>
+                    </article>
+                    <!-- Laredo -->
+                    <article class="region-card">
+                        <div class="region-card__image-wrapper">
+                            <img src="../assets/Transition-Images/Laredo.jpg" alt="Laredo region border crossing" class="region-card__image" loading="lazy">
+                        </div>
+                        <div class="region-card__content">
+                            <h3 class="region-card__title">Laredo Region</h3>
+                            <p class="region-card__description">Three ports of entry with 10 operational border crossings and two airports. Five crossings process pedestrians/bicyclists, seven process passenger vehicles, four process buses, four process commercial trucks, and two process railcars.</p>
+                            <a href="laredo.html" class="region-card__link">
+                                Explore Laredo
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                            </a>
+                        </div>
+                    </article>
+                    <!-- Rio Grande Valley -->
+                    <article class="region-card">
+                        <div class="region-card__image-wrapper">
+                            <img src="../assets/Transition-Images/RGV.jpg" alt="Rio Grande Valley region border crossing" class="region-card__image" loading="lazy">
+                        </div>
+                        <div class="region-card__content">
+                            <h3 class="region-card__title">Rio Grande Valley Region</h3>
+                            <p class="region-card__description">Five ports of entry with 14 operational border crossings, three airports, and a seaport. Ten crossings process pedestrians/bicyclists, 13 process passenger vehicles, eight process buses, six process commercial trucks, and one processes railcars.</p>
+                            <a href="rio-grande-valley.html" class="region-card__link">
+                                Explore Valley
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                            </a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Map Section -->
+        <section id="map" class="section section--alt">
+            <div class="container">
+                <div class="text-center mb-8">
+                    <h2>Interactive Border Crossings Map</h2>
+                    <p class="text-muted" style="margin: var(--space-4) 0 0;">
+                        Explore Texas' 34 border crossings across three regions: El Paso, Laredo, and the Rio Grande Valley.
+                    </p>
+                </div>
+            </div>
+            <div class="map-embed">
+                <div class="map-embed__wrapper">
+                    <iframe class="map-embed__iframe" data-src="https://experience.arcgis.com/experience/0224d33cb25d48c09d551dc46d404ebe" frameborder="0" allowfullscreen title="Interactive ArcGIS Online Map - Texas-Mexico Border Crossings"></iframe>
+                    <div class="map-embed__overlay" id="map-overlay">
+                        <span class="map-embed__overlay-label">Click to interact with the map</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Role of Border Infrastructure in Trade -->
+        <section class="section">
+            <div class="container">
+                <div class="text-center mb-8">
+                    <h2>The Role of Texas' Border Infrastructure in U.S.-Mexico Trade</h2>
+                </div>
+                <div class="layout-two-col layout-two-col--equal">
+                    <div>
+                        <p>Mexico is the U.S. and Texas' most important international trading partner. In 2024, the U.S. and Mexico traded <strong>$839.9 billion</strong> in goods, of which nearly two-thirds (<strong>$552.9 billion</strong>) were processed at the Texas border regions.</p>
+                        <p><strong>In the same year, Texas traded $281.2 billion in goods with Mexico: 3.7 times the value of Texas' trade with Canada, the State's second largest international trading partner.</strong></p>
+                        <p>In addition, $271.7 billion in trade originating in or destined for other U.S. States or Canada that passed through the state was processed at the Texas border regions.</p>
+                        <p>Of the $552.9 billion of U.S.-Mexico trade that was processed at the Texas border regions, $454.5 billion (82%) was transported by commercial truck and $88.8 billion (16%) was transported by rail.</p>
+                        <p>Of the $552.9 billion of U.S.-Mexico trade processed at the Texas border regions in 2024, $213.9 billion was exports and $339.1 billion was imports.</p>
+                        <h3 class="mt-8">Top Commodities (2024)</h3>
+                        <ul style="list-style: disc; padding-left: 24px; margin-top: 16px;">
+                            <li style="margin-bottom: 8px;">Machinery/electrical equipment</li>
+                            <li style="margin-bottom: 8px;">Transportation equipment</li>
+                            <li style="margin-bottom: 8px;">Metals</li>
+                            <li style="margin-bottom: 8px;">Plastics/rubbers</li>
+                            <li style="margin-bottom: 8px;">Mineral products</li>
+                        </ul>
+                        <p class="text-muted mt-4" style="font-size: 13px;"><em>Source: Bureau of Transportation Statistics (BTS)</em></p>
+                    </div>
+                    <aside>
+                        <img src="../assets/images/2024_Quick_Facts_TX_Trade_Values.svg" alt="2024 Quick Facts - U.S.-Mexico trade values processed at Texas border" style="width: 100%; height: auto;">
+                    </aside>
+                </div>
+            </div>
+        </section>
+
+        <!-- Trade Trends -->
+        <section class="section section--alt">
+            <div class="container">
+                <div class="text-center mb-8">
+                    <h2>Trade Trends (2014&ndash;2024)</h2>
+                    <p class="text-muted" style="max-width: 700px; margin: var(--space-4) auto 0;">
+                        The Texas-Mexico international bridges and border crossings serve as important gateways in facilitating trade.
+                    </p>
+                </div>
+                <div class="grid grid--3">
+                    <div class="stat-card">
+                        <div class="stat-card__value">+71%</div>
+                        <div class="stat-card__label">Truck trade value increase</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card__value">+41%</div>
+                        <div class="stat-card__label">Rail trade value increase</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card__value">$5.4B</div>
+                        <div class="stat-card__label">Trade via pipeline (2024)</div>
+                    </div>
+                </div>
+                <p class="text-muted text-center mt-4" style="font-size: 13px;"><em>Source: Bureau of Transportation Statistics (BTS)</em></p>
+            </div>
+        </section>
+
+        <!-- Cross-Border Crossings -->
+        <section class="section">
+            <div class="container">
+                <div class="text-center mb-8">
+                    <h2>Cross-Border Personal and Commercial Crossings</h2>
+                    <p class="text-muted" style="max-width: 700px; margin: var(--space-4) auto 0;">
+                        Strong cultural, family, and economic ties exist in the border regions. Residents from border communities cross the Texas-Mexico border daily to shop, work, and visit family and friends.
+                    </p>
+                </div>
+                <div class="grid grid--4">
+                    <div class="stat-card">
+                        <div class="stat-card__value">17.5M</div>
+                        <div class="stat-card__label">Pedestrians/bicyclists (2024)</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card__value">35.1M</div>
+                        <div class="stat-card__label">Passenger vehicles (2024)</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card__value">5.4M</div>
+                        <div class="stat-card__label">Commercial trucks (2024)</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card__value">1.1M</div>
+                        <div class="stat-card__label">Railcars (2024)</div>
+                    </div>
+                </div>
+                <div class="content-narrow mt-8">
+                    <p>About 38% (6.7 million) of the pedestrians/bicyclists crossed at the Rio Grande Valley region and almost 37% (12.9 million) passenger vehicles entering the U.S. from Mexico crossed at the El Paso region.</p>
+                    <p>Almost 63% (3.4 million) of the commercial trucks and 82% (0.9 million) of the railcars entering the U.S. from Mexico crossed at the Laredo region.</p>
+                    <p class="text-muted mt-4" style="font-size: 13px;"><em>Source: U.S. Customs and Border Protection (CBP)</em></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Crossing Trends -->
+        <section class="section section--alt">
+            <div class="container">
+                <div class="text-center mb-8">
+                    <h2>Crossing Volume Trends (2014&ndash;2024)</h2>
+                </div>
+                <div class="grid grid--3 mb-8">
+                    <div class="stat-card">
+                        <h3 style="font-size: 16px; margin-bottom: 8px; color: var(--color-primary);">Pedestrian/Bicycle</h3>
+                        <p style="font-size: 14px;">Increased 23% from 2014 to 2019. Sharp reduction in 2020&ndash;2021 due to COVID-19. Crossings have since increased but have not reached 2019 volume.</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3 style="font-size: 16px; margin-bottom: 8px; color: var(--color-primary);">Passenger Vehicle</h3>
+                        <p style="font-size: 14px;">Peaked in 2018 at 35.4 million. Overall increased 7% between 2014 and 2024, though crossings have yet to return to the 2018 peak.</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3 style="font-size: 16px; margin-bottom: 8px; color: var(--color-primary);">Bus</h3>
+                        <p style="font-size: 14px;">Peaked in 2014 at 98,505. Similarly impacted by the COVID-19 non-essential travel ban. Overall declined 25% between 2014 and 2024.</p>
+                    </div>
+                </div>
+                <div class="grid grid--3">
+                    <div class="stat-card">
+                        <h3 style="font-size: 16px; margin-bottom: 8px; color: var(--color-primary);">Commercial Truck</h3>
+                        <div class="stat-card__value">+44%</div>
+                        <p style="font-size: 14px;">More than 1.6 million additional northbound commercial truck crossings between 2014 and 2024.</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3 style="font-size: 16px; margin-bottom: 8px; color: var(--color-primary);">Railcar</h3>
+                        <div class="stat-card__value">+32%</div>
+                        <p style="font-size: 14px;">An increase of 262,806 northbound railcars between 2014 and 2024.</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3 style="font-size: 16px; margin-bottom: 8px; color: var(--color-primary);">Train Length</h3>
+                        <div class="stat-card__value">109</div>
+                        <p style="font-size: 14px;">Average railcars per train in 2024, up from fewer than 100 prior to 2018.</p>
+                    </div>
+                </div>
+                <p class="text-muted text-center mt-4" style="font-size: 13px;"><em>Source: U.S. Customs and Border Protection (CBP)</em></p>
+            </div>
+        </section>
+
+        <!-- Quick Facts -->
+        <section class="section section--dark">
+            <div class="container text-center">
+                <h2 style="color: var(--color-white);">Texas-Mexico Quick Facts</h2>
+                <p style="color: rgba(255,255,255,0.85); max-width: 600px; margin: var(--space-4) auto var(--space-8);">Download the Quick Facts infographic summarizing trade and crossing data at the Texas-Mexico border.</p>
+                <a href="https://tiger-unt.github.io/TX-MX-Border/Quick_Facts_PDF/Texas_Mexico_Border_2024_Quick_Facts_TX.pdf" class="btn btn--white" target="_blank" rel="noopener noreferrer">Download Quick Facts (PDF)</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="site-footer__container">
+            <div class="site-footer__content">
+                <div class="site-footer__contact">
+                    <h3 class="site-footer__heading">Contact</h3>
+                    <address class="site-footer__address">
+                        <p class="site-footer__dept">Transportation Planning & Programming Division</p>
+                        <p class="site-footer__person">
+                            <strong>Claudia Josefina Lagos Galindo</strong><br>
+                            Manager, International Trade and Border Planning Branch
+                        </p>
+                        <p class="site-footer__location">6230 E. Stassney Ln<br>Austin, Texas 78744</p>
+                        <p class="site-footer__phone"><a href="tel:+17372627459">(737) 262-7459</a></p>
+                    </address>
+                </div>
+                <div class="site-footer__links">
+                    <h3 class="site-footer__heading">Quick Links</h3>
+                    <ul class="site-footer__link-list">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="el-paso.html">El Paso Region</a></li>
+                        <li><a href="laredo.html">Laredo Region</a></li>
+                        <li><a href="rio-grande-valley.html">Rio Grande Valley</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="site-footer__txdot">
+                    <h3 class="site-footer__heading">Main Site</h3>
+                    <a href="https://www.txdot.gov/" class="site-footer__txdot-link" target="_blank" rel="noopener noreferrer">
+                        <img src="../assets/Logos/TxDOT-Logo-Vertical-RGB-Blue.svg" alt="TxDOT - Texas Department of Transportation" width="50" height="50">
+                        <span>Visit TxDOT.gov</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+    // Map iframe click-to-interact: overlay blocks scroll-jacking until user clicks
+    (function () {
+        const overlay = document.getElementById('map-overlay');
+        if (!overlay) return;
+        const wrapper = overlay.closest('.map-embed__wrapper');
+
+        // Click overlay → load & activate iframe
+        overlay.addEventListener('click', function () {
+            var iframe = wrapper.querySelector('iframe[data-src]');
+            if (iframe) {
+                iframe.src = iframe.getAttribute('data-src');
+                iframe.removeAttribute('data-src');
+            }
+            overlay.classList.add('map-embed__overlay--active');
+            if (wrapper) wrapper.classList.add('map-embed__wrapper--active');
+        });
+
+        // Click anywhere outside the wrapper → deactivate iframe
+        document.addEventListener('click', function (e) {
+            if (wrapper && !wrapper.contains(e.target)) {
+                overlay.classList.remove('map-embed__overlay--active');
+                wrapper.classList.remove('map-embed__wrapper--active');
+            }
+        });
+
+        // Escape key → deactivate iframe (only when map is active)
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape' && overlay.classList.contains('map-embed__overlay--active')) {
+                e.preventDefault();
+                overlay.classList.remove('map-embed__overlay--active');
+                if (wrapper) wrapper.classList.remove('map-embed__wrapper--active');
+            }
+        });
+    })();
+    </script>
+</body>
+</html>

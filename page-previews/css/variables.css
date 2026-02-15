@@ -1,0 +1,171 @@
+/**
+ * TxDOT Brand CSS Variables
+ * Based on official TxDOT Brand Guidelines
+ * https://www.txdot.gov/about/brand-guidelines.html
+ */
+
+:root {
+    /* ==========================================
+       PRIMARY COLORS
+       ========================================== */
+    --color-blue: #0056a9;           /* Primary brand color */
+    --color-white: #ffffff;
+    --color-red: #d90d0d;            /* Accent only */
+
+    /* ==========================================
+       SECONDARY COLORS
+       ========================================== */
+    /* Accessible on white backgrounds */
+    --color-dark-green: #196533;
+    --color-dark-purple: #5f0f40;
+    --color-dark-blue: #002e69;      /* For gradients */
+    --color-dark-gray: #333f48;      /* Text color */
+
+    /* Accessible on black backgrounds */
+    --color-light-brown: #c5bbaa;
+    --color-light-gray: #dadee5;     /* Background color */
+    --color-light-yellow: #f2ce1b;
+    --color-light-orange: #df5c16;
+    --color-light-green: #8ec02d;
+
+    /* ==========================================
+       SEMANTIC COLORS
+       ========================================== */
+    --color-primary: var(--color-blue);
+    --color-primary-dark: var(--color-dark-blue);
+    --color-accent: var(--color-red);
+    --color-text: var(--color-dark-gray);
+    --color-text-light: #5a6872;
+    --color-text-inverse: var(--color-white);
+    --color-background: var(--color-white);
+    --color-background-alt: #f5f7f9;
+    --color-background-dark: var(--color-dark-gray);
+    --color-border: #d1d5db;
+    --color-border-light: #e5e7eb;
+
+    /* ==========================================
+       GRADIENT
+       ========================================== */
+    --gradient-blue: linear-gradient(135deg, var(--color-blue) 0%, var(--color-dark-blue) 100%);
+
+    /* ==========================================
+       TYPOGRAPHY
+       ========================================== */
+    /* Font families */
+    --font-primary: 'IBM Plex Sans', Verdana, Aptos, Arial, sans-serif;
+    --font-condensed: 'IBM Plex Sans Condensed', Verdana, Arial, sans-serif;
+
+    /* Font sizes - using rem for accessibility */
+    --font-size-xs: 0.75rem;         /* 12px */
+    --font-size-sm: 0.875rem;        /* 14px */
+    --font-size-base: 1rem;          /* 16px */
+    --font-size-md: 1.125rem;        /* 18px */
+    --font-size-lg: 1.25rem;         /* 20px */
+    --font-size-xl: 1.5rem;          /* 24px */
+    --font-size-2xl: 1.875rem;       /* 30px */
+    --font-size-3xl: 2.25rem;        /* 36px */
+    --font-size-4xl: 3rem;           /* 48px */
+    --font-size-5xl: 3.75rem;        /* 60px */
+
+    /* Font weights */
+    --font-weight-light: 300;
+    --font-weight-normal: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+
+    /* Line heights */
+    --line-height-tight: 1.25;
+    --line-height-normal: 1.5;       /* TxDOT requirement: 1.5x font size */
+    --line-height-relaxed: 1.75;
+
+    /* Letter spacing */
+    --letter-spacing-tight: -0.025em;
+    --letter-spacing-normal: 0;
+    --letter-spacing-wide: 0.025em;
+
+    /* ==========================================
+       SPACING
+       ========================================== */
+    --space-1: 0.25rem;              /* 4px */
+    --space-2: 0.5rem;               /* 8px */
+    --space-3: 0.75rem;              /* 12px */
+    --space-4: 1rem;                 /* 16px */
+    --space-5: 1.25rem;              /* 20px */
+    --space-6: 1.5rem;               /* 24px */
+    --space-8: 2rem;                 /* 32px */
+    --space-10: 2.5rem;              /* 40px */
+    --space-12: 3rem;                /* 48px */
+    --space-16: 4rem;                /* 64px */
+    --space-20: 5rem;                /* 80px */
+    --space-24: 6rem;                /* 96px */
+
+    /* ==========================================
+       LAYOUT
+       ========================================== */
+    --container-max-width: 1280px;
+    --container-padding: var(--space-4);
+    --content-max-width: 75ch;       /* Optimal line length: 50-75 characters */
+
+    /* ==========================================
+       BORDERS & RADIUS
+       ========================================== */
+    --border-width: 1px;
+    --border-width-2: 2px;
+    --border-radius-sm: 0.25rem;     /* 4px */
+    --border-radius: 0.375rem;       /* 6px */
+    --border-radius-md: 0.5rem;      /* 8px */
+    --border-radius-lg: 0.75rem;     /* 12px */
+    --border-radius-xl: 1rem;        /* 16px */
+    --border-radius-full: 9999px;
+
+    /* ==========================================
+       SHADOWS
+       ========================================== */
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+
+    /* ==========================================
+       TRANSITIONS
+       ========================================== */
+    --transition-fast: 150ms ease;
+    --transition-base: 200ms ease;
+    --transition-slow: 300ms ease;
+
+    /* ==========================================
+       Z-INDEX SCALE
+       ========================================== */
+    --z-dropdown: 100;
+    --z-sticky: 200;
+    --z-fixed: 300;
+    --z-modal-backdrop: 400;
+    --z-modal: 500;
+    --z-tooltip: 600;
+
+    /* ==========================================
+       BREAKPOINTS (for reference in media queries)
+       ========================================== */
+    /* 
+     * --breakpoint-sm: 640px;
+     * --breakpoint-md: 768px;
+     * --breakpoint-lg: 1024px;
+     * --breakpoint-xl: 1280px;
+     * --breakpoint-2xl: 1536px;
+     */
+}
+
+/* ==========================================
+   DARK MODE (future enhancement)
+   ========================================== */
+/*
+@media (prefers-color-scheme: dark) {
+    :root {
+        --color-text: var(--color-light-gray);
+        --color-background: #1a1a2e;
+        --color-background-alt: #16213e;
+    }
+}
+*/

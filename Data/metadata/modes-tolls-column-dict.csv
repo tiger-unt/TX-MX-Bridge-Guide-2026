@@ -1,0 +1,12 @@
+#,Column Header,Description
+1,Bridge-ID,"Unique alphanumeric identifier for each crossing, encoding district, port of entry, and bridge abbreviation."
+2,Bridge,Official English name of the border crossing or bridge.
+3,Modes,"Type of crossing mode or vehicle category for which toll rates are listed (e.g., Pedestrian or Bicycle, Motorcycle, Passenger Vehicle, Commercial Vehicle)."
+4,AxlesSouthbound,Axle count or classification used for determining the southbound (U.S.-to-Mexico) toll rate for the given vehicle type.
+5,SouthboundTolls,"Toll amount charged for southbound (U.S.-to-Mexico) crossings, in U.S. dollars. May note if southbound vehicle crossings are not permitted."
+6,AxlesNorthbound,Axle count or classification used for determining the northbound (Mexico-to-U.S.) toll rate for the given vehicle type.
+7,NorthboundTolls,"Toll amount charged for northbound (Mexico-to-U.S.) crossings, typically in Mexican pesos (MX$)."
+8,TollsAsOf,Date indicating when the toll rate information was last verified or updated.
+9,Sources,"Name(s) of the authoritative source(s) providing the toll rate data (e.g., International Bridges Steering Committee, Fideicomiso de Puentes Fronterizos)."
+10,Link-to-Reference-TX,URL linking to the Texas-side (U.S.) reference page for the crossing's toll rate information.
+11,Link-to-Reference-MX,URL linking to the Mexican-side reference page for the crossing's toll rate information.

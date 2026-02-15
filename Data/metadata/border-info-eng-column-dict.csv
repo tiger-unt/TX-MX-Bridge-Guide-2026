@@ -1,0 +1,26 @@
+#,Column Header,Description
+1,Order,"Sequential numbering of each border crossing entry, used for sorting and reference."
+2,Bridge-ID,"Unique alphanumeric identifier for each crossing, encoding district, port of entry, and bridge abbreviation."
+3,Bridge-ENG,Official English name of the border crossing or bridge.
+4,Bridge-ESP,Official Spanish name of the border crossing or bridge.
+5,District,TxDOT district or regional grouping for the crossing.
+6,POE,Port of Entry — the U.S. customs port associated with the crossing.
+7,Location,"Geographic location listing the U.S. city, county, and state paired with the corresponding Mexican city and state."
+8,AlternateNames,"Other known names for the crossing in English and/or Spanish, separated by pipe symbol (|). Includes historical, colloquial, and official alternate designations."
+9,Type-Status,"Classification of the crossing type: ""Highway Crossing"" for vehicular/pedestrian bridges or ""Railroad Crossing"" for rail-only bridges."
+10,Description,"Detailed narrative about the bridge including its history, physical characteristics, ownership structure, and operational notes."
+11,BridgeOpened,"Year(s) the bridge was originally built, opened to traffic, reconstructed, or replaced."
+12,US-Owner,Entity that owns the U.S. side of the bridge.
+13,US-Operator,Entity that operates the U.S. side of the bridge.
+14,MexicanOwner,Entity that owns the Mexican side of the bridge.
+15,MexicanOperator,Entity that operates the Mexican side of the bridge.
+16,PortAccess-or-Egress Road-TX,"Name of the road(s) providing access to/from the bridge on the Texas (U.S.) side. ""N/A"" for railroad crossings."
+17,PortAccess-or-Egress-Road-MX,"Name of the road(s) providing access to/from the bridge on the Mexican side. ""N/A"" for railroad crossings."
+18,Connection-to-Major-Highways-US,"Description of how the bridge access road connects to major U.S. highways, Interstates, and the National/Texas Highway Freight Network."
+19,Connection-to-Major Highways-MX,Description of how the bridge access road connects to major Mexican highways and state routes.
+20,InspectionFacility-BorderStation,"Details about the U.S. land port of entry (LPOE) including ownership, construction year, renovation history, and facility notes."
+21,RailroadConnection-to-MajorCities,"For railroad crossings: lists major U.S. and Mexican cities connected by the rail lines. ""N/A"" for highway crossings."
+22,ModeNotes,"Additional notes about crossing operations, typically stating that lane counts and hours pertain to U.S. facilities, and specifying toll rate vehicle types."
+23,DidYouKnow,A notable fun fact or statistic about the crossing.
+24,Comments-BridgeDirector,"Internal review comments from Bridge Directors including factsheet corrections, historical date clarifications, name change requests, and update notes."
+25,Comments-UNT-or-TxDOT,Internal comments from UNT (University of North Texas) or TxDOT referencing related Mexico-side infrastructure project codes and names.

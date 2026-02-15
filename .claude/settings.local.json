@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(start \"\" \"X:\\\\TxDOT IAC 2025-26 - General\\\\Task 1 - Bridges and Border Crossings Guide\\\\Task 1.4 - 2026 Bridge WebApp\\\\page-previews\\\\home-preview.html\")",
+      "WebFetch(domain:www.txdot.gov)",
+      "Bash(python:*)",
+      "Bash(where:*)",
+      "Bash(py -c:*)",
+      "Bash(py -m pip install:*)",
+      "Bash(curl:*)",
+      "Bash(wc:*)",
+      "Bash(grep:*)"
+    ]
+  }
+}
