@@ -16,8 +16,10 @@ alwaysApply: true
 | `Project_Plan/` | Development plan, process diagrams, planning docs |
 | `Data/` | Border crossing source data. Main CSVs: `border-info-eng.csv` (crossing details, descriptions), `modes-info.csv` (hours, lanes per mode), `modes-tolls.csv` (tolls per mode). `Data/metadata/` has column dictionaries and lookup tables (crossings-dict, TxDOT-districts-dict, ports-of-entry-dict). |
 | `Ref_Storymaps/` | Reference StoryMap content and analysis |
-| `assets/` | Images, logos, graphics |
-| `page-previews/` | HTML/CSS/JS for page templates and previews |
+| `assets/` | Images, logos, graphics. Includes `icons/` (19 SVG mode icons) and per-crossing photo folders (e.g., `ELP-ELP-PASO/`). |
+| `page-previews/` | Homepage template, CSS design system (`css/`), client-side JS (`js/`) |
+| `app/` | Dynamic pages — homepage (`index.html` + `js/home-loader.js` + `js/md-utils.js`), bridge pages (HTML per crossing + `js/bridge-loader.js` + `js/csv-utils.js`), CSS (`css/home.css`, `css/bridge.css`), PDF templates (`pdf-templates/`) |
+| `build-plans/` | Implementation plans and notes for features in progress |
 
 ## Core Architecture Principle
 
@@ -36,10 +38,12 @@ alwaysApply: true
    - Join key: Bridge-ID. Generates individual crossing pages and PDFs
    - Content Manager edits in SharePoint Excel
 
-3. **Markdown Files** - Long-form narrative content
-   - Regional histories and detailed stories
+3. **Markdown Files** (`Data/`) - Long-form narrative content (✓ Implemented for homepage)
+   - `Data/home-content-eng.md` — English homepage content (single source of truth)
+   - Structured format: section delimiters, stat blocks, region/trend cards, standard markdown images/links
+   - Client-side parsing by `md-utils.js` → `home-loader.js` → DOM population
    - Content Manager edits in SharePoint/GitHub
-   - Populates region overview pages
+   - Authoring guide: `build-plans/MARKDOWN-CONTENT-SKILL.md`
 
 ## Critical Requirements
 
@@ -59,13 +63,34 @@ alwaysApply: true
 
 ## Key Technical Components
 
-- Automated build system (CSV + Markdown → HTML + PDF)
-- ArcGIS Online (AGOL) map integration with scroll animations
+- Automated build system (CSV + Markdown → HTML + PDF) — Node.js build planned, not yet implemented
+- Client-side CSV data loading — `app/js/csv-utils.js` parses CSVs, `app/js/bridge-loader.js` joins tables by Bridge-ID and renders pages
+- Client-side markdown parsing — `app/js/md-utils.js` parses structured markdown, `app/js/home-loader.js` populates homepage DOM
+- ArcGIS Online (AGOL) map integration with scroll animations — not yet started
 - Single AGOL map reused across 3 region pages (different zoom/center)
-- Interactive data visualizations (converting static guidebook charts)
+- PDF factsheet generation — print CSS + template in `app/pdf-templates/`, download button on bridge pages
+- Interactive data visualizations (converting static guidebook charts) — not yet started
 - GitHub Pages deployment
+
+## Bridge Page Architecture
+
+Each crossing gets an HTML file in `app/` (e.g., `app/ELP-ELP-PASO.html`) that:
+1. Loads shared CSS (`app/css/bridge.css`) and design system (`page-previews/css/`)
+2. Loads `app/js/csv-utils.js` and `app/js/bridge-loader.js`
+3. Bridge-loader reads all 3 CSV files, joins by Bridge-ID, and renders the page content
+4. Print/PDF uses `app/pdf-templates/css/factsheet.css` + `page-previews/css/print.css`
+
+## Homepage Architecture (Markdown-Driven)
+
+`app/index.html` uses a markdown-driven pattern parallel to bridge pages:
+1. Content in `Data/home-content-eng.md` — structured markdown with section delimiters
+2. `md-utils.js` parses: frontmatter, `<!-- section: name -->` sections, `<!-- stats -->` blocks, `<!-- region: id -->` / `<!-- trend-card: type -->` cards, `<!-- source -->` citations
+3. Images use `![alt](path)` and links use `[text](url)` (standard markdown, visible in viewers)
+4. `home-loader.js` maps sections to DOM containers by ID convention (e.g., `trade-trends-header`, `trade-trends-stats`, `trade-trends-source`)
+5. Nav & footer are hardcoded in HTML template (structural chrome)
 
 ## Content Update Workflow
 
 - **AGOL Map:** Edit in portal → Save → Instant update
-- **CSV/Markdown:** Edit in SharePoint/GitHub → Build → Deploy
+- **CSV:** Edit in SharePoint/GitHub → Build → Deploy
+- **Markdown:** Edit in SharePoint/GitHub → Deploy → Auto-refresh (client-side parsing, no build step)

@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Texas-Mexico Border Crossings Guide | TxDOT</title>
+    <meta name="description" content="Comprehensive guide to Texas-Mexico international border crossings, providing bilingual information on trade, travel, and crossing operations.">
+
+    <!-- TxDOT Brand Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Shared Design System -->
+    <link rel="stylesheet" href="../page-previews/css/variables.css?v=2">
+    <link rel="stylesheet" href="../page-previews/css/base.css?v=2">
+    <link rel="stylesheet" href="../page-previews/css/layout.css?v=2">
+    <link rel="stylesheet" href="../page-previews/css/components.css?v=2">
+
+    <!-- Homepage Styles -->
+    <link rel="stylesheet" href="css/home.css?v=1">
+
+    <!-- Print / PDF Styles -->
+    <link rel="stylesheet" href="../page-previews/css/print.css" media="print">
+
+    <!-- Inline override for background colors (matching home-preview.html) -->
+    <style>
+        .utility-bar { background-color: #dadee5 !important; color: var(--color-text) !important; }
+        .utility-bar__link,
+        .utility-bar__link:hover,
+        .lang-dropdown__toggle { color: var(--color-text) !important; }
+        .site-footer { background-color: #dadee5 !important; color: var(--color-text) !important; }
+        .site-footer__heading,
+        .site-footer__address a,
+        .site-footer__link-list a,
+        .site-footer__txdot-link { color: var(--color-text) !important; }
+    </style>
+</head>
+<body>
+    <!-- Skip Link -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- ========================================
+         UTILITY BAR
+         ======================================== -->
+    <div class="utility-bar">
+        <div class="utility-bar__container">
+            <nav class="utility-bar__nav" aria-label="Utility navigation">
+                <ul class="utility-bar__list">
+                    <li class="utility-bar__item">
+                        <a href="contact.html" class="utility-bar__link">
+                            Contact us <span class="utility-bar__arrow">&raquo;</span>
+                        </a>
+                    </li>
+                    <li class="utility-bar__item utility-bar__item--lang">
+                        <div class="lang-dropdown">
+                            <button class="lang-dropdown__toggle" aria-expanded="false" aria-haspopup="true" id="lang-toggle">
+                                <svg class="lang-dropdown__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="2" y1="12" x2="22" y2="12"/>
+                                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                                </svg>
+                                <span class="lang-dropdown__current">English</span>
+                                <svg class="lang-dropdown__chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="6 9 12 15 18 9"/>
+                                </svg>
+                            </button>
+                            <ul class="lang-dropdown__menu" role="menu" id="lang-menu">
+                                <li role="none">
+                                    <a href="index.html" role="menuitem" class="lang-dropdown__option lang-dropdown__option--active" aria-current="true">English</a>
+                                </li>
+                                <li role="none">
+                                    <a href="index-es.html" role="menuitem" class="lang-dropdown__option">Espa&ntilde;ol</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <!-- ========================================
+         SITE HEADER
+         ======================================== -->
+    <header class="site-header">
+        <div class="site-header__container">
+            <div class="site-header__brand">
+                <a href="https://www.txdot.gov/" class="site-header__logo-link" target="_blank" rel="noopener noreferrer">
+                    <img class="site-header__logo" src="../assets/Logos/TxDOT-Logo-Vertical-RGB.svg" alt="TxDOT - Texas Department of Transportation" width="70" height="70">
+                </a>
+                <div class="site-header__title-group">
+                    <a href="index.html" class="site-header__title-link">
+                        <h1 class="site-header__title">Texas-Mexico Border Crossings Guide</h1>
+                        <p class="site-header__subtitle">International Trade and Border Planning Branch | Texas Department of Transportation</p>
+                    </a>
+                </div>
+            </div>
+            <div class="site-header__search">
+                <form class="search-form" action="search.html" method="GET" role="search">
+                    <label for="site-search" class="visually-hidden">Search site</label>
+                    <div class="search-form__wrapper">
+                        <input type="search" id="site-search" name="q" class="search-form__input" placeholder="Search..." autocomplete="off">
+                        <button type="submit" class="search-form__button" aria-label="Search">
+                            <svg class="search-form__icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="11" cy="11" r="8"/>
+                                <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                            </svg>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </header>
+
+    <!-- ========================================
+         MAIN NAVIGATION
+         ======================================== -->
+    <nav class="main-nav" aria-label="Main navigation">
+        <div class="main-nav__container">
+            <button class="main-nav__toggle" aria-expanded="false" aria-controls="main-menu" id="nav-toggle">
+                <span class="main-nav__toggle-icon"></span>
+                <span class="visually-hidden">Menu</span>
+            </button>
+            <ul class="main-nav__menu" id="main-menu" role="menubar">
+                <li class="main-nav__item" role="none">
+                    <a href="index.html" class="main-nav__link main-nav__link--active" role="menuitem">Home</a>
+                </li>
+                <li class="main-nav__item main-nav__item--has-dropdown" role="none">
+                    <a href="el-paso.html" class="main-nav__link" role="menuitem" aria-haspopup="true" aria-expanded="false">
+                        El Paso
+                        <svg class="main-nav__chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                    </a>
+                    <div class="main-nav__dropdown" role="menu">
+                        <div class="main-nav__dropdown-content">
+                            <div class="main-nav__dropdown-header">
+                                <h3 class="main-nav__dropdown-title">El Paso Region</h3>
+                                <p class="main-nav__dropdown-desc">10 operational border crossings including bridges for pedestrians, vehicles, and commercial freight.</p>
+                            </div>
+                            <a href="el-paso.html" class="main-nav__dropdown-cta">
+                                View El Paso Region
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                            </a>
+                        </div>
+                    </div>
+                </li>
+                <li class="main-nav__item main-nav__item--has-dropdown" role="none">
+                    <a href="laredo.html" class="main-nav__link" role="menuitem" aria-haspopup="true" aria-expanded="false">
+                        Laredo
+                        <svg class="main-nav__chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                    </a>
+                    <div class="main-nav__dropdown" role="menu">
+                        <div class="main-nav__dropdown-content">
+                            <div class="main-nav__dropdown-header">
+                                <h3 class="main-nav__dropdown-title">Laredo Region</h3>
+                                <p class="main-nav__dropdown-desc">10 operational border crossings. Port of Laredo is #1 in the U.S. by trade value.</p>
+                            </div>
+                            <a href="laredo.html" class="main-nav__dropdown-cta">
+                                View Laredo Region
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                            </a>
+                        </div>
+                    </div>
+                </li>
+                <li class="main-nav__item main-nav__item--has-dropdown" role="none">
+                    <a href="rio-grande-valley.html" class="main-nav__link" role="menuitem" aria-haspopup="true" aria-expanded="false">
+                        Rio Grande Valley
+                        <svg class="main-nav__chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                    </a>
+                    <div class="main-nav__dropdown" role="menu">
+                        <div class="main-nav__dropdown-content">
+                            <div class="main-nav__dropdown-header">
+                                <h3 class="main-nav__dropdown-title">Rio Grande Valley Region</h3>
+                                <p class="main-nav__dropdown-desc">14 operational border crossings, the most diverse of any Texas border region.</p>
+                            </div>
+                            <a href="rio-grande-valley.html" class="main-nav__dropdown-cta">
+                                View Rio Grande Valley Region
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                            </a>
+                        </div>
+                    </div>
+                </li>
+                <li class="main-nav__item" role="none">
+                    <a href="about.html" class="main-nav__link" role="menuitem">About</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- ========================================
+         MAIN CONTENT
+         ======================================== -->
+    <main id="main-content" class="main-content">
+
+        <!-- Loading indicator -->
+        <div id="page-loader" role="status" aria-live="polite">Loading page content&hellip;</div>
+
+        <!-- Dynamic content (hidden until JS populates it) -->
+        <div id="home-content" style="opacity: 0;">
+
+            <!-- SECTION: Hero -->
+            <section id="hero-section" class="hero hero--lg" aria-label="Hero banner">
+                <div class="hero__content">
+                    <div class="hero__card">
+                        <h2 id="hero-title" class="hero__title"></h2>
+                        <p id="hero-subtitle" class="hero__subtitle"></p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION: Introduction -->
+            <section class="section" aria-label="Introduction">
+                <div class="container">
+                    <div id="intro-content" class="content-narrow"></div>
+                </div>
+            </section>
+
+            <!-- SECTION: Texas-Mexico Border Overview -->
+            <section class="section section--alt" aria-label="Texas-Mexico border overview">
+                <div class="container">
+                    <div class="text-center mb-8" id="border-overview-prose"></div>
+                    <div class="text-center mb-8">
+                        <img id="border-overview-image" src="" alt="" class="border-intro-image">
+                    </div>
+                    <div class="content-narrow mb-8" id="border-overview-desc"></div>
+                    <div id="border-overview-stats" class="grid grid--4"></div>
+                </div>
+            </section>
+
+            <!-- SECTION: Three Border Regions -->
+            <section id="regions" class="section" aria-label="Three border regions">
+                <div class="container">
+                    <div id="regions-header" class="text-center mb-12"></div>
+                    <div id="regions-grid" class="grid grid--3"></div>
+                </div>
+            </section>
+
+            <!-- SECTION: Interactive Map -->
+            <section id="map" class="section section--alt" aria-label="Interactive map">
+                <div class="container">
+                    <div id="map-header" class="text-center mb-8"></div>
+                </div>
+                <div class="map-embed">
+                    <div class="map-embed__wrapper">
+                        <iframe class="map-embed__iframe" data-src="" frameborder="0" allowfullscreen title="Interactive ArcGIS Online Map - Texas-Mexico Border Crossings"></iframe>
+                        <div class="map-embed__overlay" id="map-overlay">
+                            <span class="map-embed__overlay-label">Click to interact with the map</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION: Role of Border Infrastructure in Trade -->
+            <section class="section" aria-label="Role of border infrastructure in trade">
+                <div class="container">
+                    <div class="text-center mb-8">
+                        <h2 id="trade-role-heading"></h2>
+                    </div>
+                    <div class="layout-two-col layout-two-col--equal">
+                        <div id="trade-role-content"></div>
+                        <aside>
+                            <img id="trade-role-image" src="" alt="">
+                        </aside>
+                    </div>
+                    <p id="trade-role-source" class="text-muted mt-4 source-citation"></p>
+                </div>
+            </section>
+
+            <!-- SECTION: Trade Trends -->
+            <section class="section section--alt" aria-label="Trade trends">
+                <div class="container">
+                    <div id="trade-trends-header" class="text-center mb-8"></div>
+                    <div id="trade-trends-stats" class="grid grid--3"></div>
+                    <p id="trade-trends-source" class="text-muted text-center mt-4 source-citation"></p>
+                </div>
+            </section>
+
+            <!-- SECTION: Cross-Border Crossings -->
+            <section class="section" aria-label="Cross-border crossings">
+                <div class="container">
+                    <div id="crossings-header" class="text-center mb-8"></div>
+                    <div id="crossings-stats" class="grid grid--4"></div>
+                    <div id="crossings-extra" class="content-narrow mt-8"></div>
+                    <p id="crossings-source" class="text-muted mt-4 source-citation"></p>
+                </div>
+            </section>
+
+            <!-- SECTION: Crossing Volume Trends -->
+            <section class="section section--alt" aria-label="Crossing volume trends">
+                <div class="container">
+                    <div id="crossing-trends-header" class="text-center mb-8"></div>
+                    <div id="crossing-trends-descriptive" class="grid grid--3 mb-8"></div>
+                    <div id="crossing-trends-metric" class="grid grid--3"></div>
+                    <p id="crossing-trends-source" class="text-muted text-center mt-4 source-citation"></p>
+                </div>
+            </section>
+
+            <!-- SECTION: Quick Facts -->
+            <section class="section section--dark" aria-label="Quick facts download">
+                <div class="container text-center">
+                    <div id="quick-facts-content"></div>
+                    <a id="quick-facts-link" href="#" class="btn btn--white mt-8" target="_blank" rel="noopener noreferrer"></a>
+                </div>
+            </section>
+
+        </div><!-- end #home-content -->
+    </main>
+
+    <!-- ========================================
+         FOOTER
+         ======================================== -->
+    <footer class="site-footer">
+        <div class="site-footer__container">
+            <div class="site-footer__content">
+                <div class="site-footer__contact">
+                    <h3 class="site-footer__heading">Contact</h3>
+                    <address class="site-footer__address">
+                        <p class="site-footer__dept">Transportation Planning &amp; Programming Division</p>
+                        <p class="site-footer__person">
+                            <strong>Claudia Josefina Lagos Galindo</strong><br>
+                            Manager, International Trade and Border Planning Branch
+                        </p>
+                        <p class="site-footer__location">6230 E. Stassney Ln<br>Austin, Texas 78744</p>
+                        <p class="site-footer__phone"><a href="tel:+17372627459">(737) 262-7459</a></p>
+                    </address>
+                </div>
+                <div class="site-footer__links">
+                    <h3 class="site-footer__heading">Quick Links</h3>
+                    <ul class="site-footer__link-list">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="el-paso.html">El Paso Region</a></li>
+                        <li><a href="laredo.html">Laredo Region</a></li>
+                        <li><a href="rio-grande-valley.html">Rio Grande Valley</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="site-footer__txdot">
+                    <h3 class="site-footer__heading">Main Site</h3>
+                    <a href="https://www.txdot.gov/" class="site-footer__txdot-link" target="_blank" rel="noopener noreferrer">
+                        <img src="../assets/Logos/TxDOT-Logo-Vertical-RGB-Blue.svg" alt="TxDOT - Texas Department of Transportation" width="50" height="50">
+                        <span>Visit TxDOT.gov</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Shared JS (language dropdown, mobile nav, desktop dropdowns) -->
+    <script src="../page-previews/js/main.js"></script>
+
+    <!-- Map iframe click-to-interact -->
+    <script>
+    (function () {
+        var overlay = document.getElementById('map-overlay');
+        if (!overlay) return;
+        var wrapper = overlay.closest('.map-embed__wrapper');
+
+        overlay.addEventListener('click', function () {
+            var iframe = wrapper.querySelector('iframe[data-src]');
+            if (iframe) {
+                iframe.src = iframe.getAttribute('data-src');
+                iframe.removeAttribute('data-src');
+            }
+            overlay.classList.add('map-embed__overlay--active');
+            if (wrapper) wrapper.classList.add('map-embed__wrapper--active');
+        });
+
+        document.addEventListener('click', function (e) {
+            if (wrapper && !wrapper.contains(e.target)) {
+                overlay.classList.remove('map-embed__overlay--active');
+                wrapper.classList.remove('map-embed__wrapper--active');
+            }
+        });
+
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape' && overlay.classList.contains('map-embed__overlay--active')) {
+                e.preventDefault();
+                overlay.classList.remove('map-embed__overlay--active');
+                if (wrapper) wrapper.classList.remove('map-embed__wrapper--active');
+            }
+        });
+    })();
+    </script>
+
+    <!-- Homepage Content Loader -->
+    <script>window.PAGE_LANG = "eng";</script>
+    <script src="js/csv-utils.js"></script>
+    <script src="js/md-utils.js"></script>
+    <script src="js/home-loader.js?v=1"></script>
+</body>
+</html>

@@ -103,17 +103,19 @@ The content will be updated with **2026 data and additional information for Mexi
    * Content generator edits in Excel (Sharepoint)
    * Generates individual crossing pages and PDFs
 
-3. **Markdown Files** - Long-form narrative content
+3. **Markdown Files** - Long-form narrative content (✓ Implemented for homepage)
 
-   * Website text
-   * Content generator edits in Sharepoint or GitHub web editor
-   * Populates website text
+   * Structured markdown with section delimiters, stat blocks, region cards, trend cards
+   * Standard markdown images `![alt](path)` and links `[text](url)` — visible in Markdown viewers
+   * Content generator edits in SharePoint or GitHub web editor
+   * Client-side parsing by `md-utils.js` populates website pages at runtime
+   * Authoring guide: `build-plans/MARKDOWN-CONTENT-SKILL.md`
 
 **Content Update Workflow:**
 
 * **ArcGIS Online (AGOL) Map**: Developer edits → Saves → Instant update
 * **CSV Data**: SME edits in SharePoint → Developer builds → Deploys
-* **Markdown**: SME edits in SharePoint/GitHub → Developer builds → Deploys
+* **Markdown**: SME edits in SharePoint/GitHub → Deploy → Page auto-refreshes (client-side parsing, no build step)
 
 ### Site Structure
 
@@ -162,17 +164,43 @@ The content will be updated with **2026 data and additional information for Mexi
 
    * **GitHub Repository** → **GitHub Pages Hosting**: Continuous deployment to the public web.
 
+**Current Implementation Architecture:**
+
+The project uses two main content directories:
+
+| Folder | Purpose |
+|--------|---------|
+| `page-previews/` | Homepage template and CSS design system (variables, base, layout, components, print) |
+| `app/` | Dynamic pages — homepage (loads markdown content), bridge pages (load CSV data), all client-side rendering |
+
+All pages in `app/` use a data-driven approach with client-side rendering:
+
+**Homepage** (`app/index.html`) — markdown-driven:
+* `Data/home-content-eng.md` — structured markdown content (single source of truth)
+* `app/js/md-utils.js` — shared markdown parsing utilities (frontmatter, sections, stats, cards, images, links)
+* `app/js/home-loader.js` — fetches markdown, parses sections, populates DOM containers
+* `app/css/home.css` — homepage-specific styles
+* Images use standard markdown `![alt](path)` and links use `[text](url)` for visibility in Markdown viewers
+
+**Bridge pages** — CSV-driven:
+* `app/js/csv-utils.js` — parses CSV data files at runtime
+* `app/js/bridge-loader.js` — loads all 3 CSV tables, joins by Bridge-ID, and renders the page
+* `app/css/bridge.css` — bridge page-specific styles
+* `app/pdf-templates/` — PDF factsheet template and styles for print/download
+* Each bridge page HTML file (e.g., `app/ELP-ELP-PASO.html`) loads the shared JS and renders data for that crossing
+* Assets are organized per crossing (e.g., `assets/ELP-ELP-PASO/`) with 19 shared SVG mode icons in `assets/icons/`
+
 ### Implementation Timeline
 
 **Project Goal:** Complete the entire initiative in six months, with the final product (website launch) delivered by early August 2026.
 
 **Note:** The phases represent major work streams that will often happen concurrently rather than sequentially. For example, initial templates can be built while data migration is ongoing, and design work can proceed in parallel with core development.
 
-**Phase 1: Data Preparation \ Content Migration**
+**Phase 1: Data Preparation \ Content Migration** — *In Progress*
 
-* Developer: Structure data spreadsheets (CSV) and text document (Markdown) templates
+* ~~Developer: Structure data spreadsheets (CSV) and text document (Markdown) templates~~ ✓ Done — 3 CSV tables (`border-info-eng.csv`, `modes-info.csv`, `modes-tolls.csv`) + 6 metadata dictionaries in `Data/metadata/`
 * Developer: Lead initial data extraction from 2025 Bridge Guidebook PDFs
-* Developer: Create structured CSV file (34 crossings × 30+ fields)
+* Developer: Populate structured CSV files (35 crossings × 25+ fields)
 * Developer: Update data points
 * SME: Review migrated data for accuracy
 * SME: Update with most recent information and statistics
@@ -180,41 +208,43 @@ The content will be updated with **2026 data and additional information for Mexi
 * Both: Quality checking and data validation
 * Both: Multiple review and correction cycles
 
-**Phase 2: Foundation**
+**Phase 2: Foundation** — *In Progress*
 
-* Project setup and build system architecture
-* CSV structure design and validation logic
-* Template creation (home, region, crossing, PDF templates)
-* Build script development
+* ~~Project setup and build system architecture~~ ✓ Done — GitHub repo, VS Code tasks, Python dev server
+* ~~CSV structure design and validation logic~~ ✓ Done — 3-table normalized schema with Bridge-ID join key
+* Template creation (home, region, crossing, PDF templates) — *In progress:* Dynamic homepage (`app/index.html`) loads content from markdown at runtime; static preview at `page-previews/home-preview.html`; first bridge page (`app/ELP-ELP-PASO.html`) working; PDF template started (`app/pdf-templates/bridge-factsheet.html`); region templates not yet started
+* ~~Markdown content system~~ ✓ Done — `app/js/md-utils.js` (shared parser), `app/js/home-loader.js` (homepage DOM population), `Data/home-content-eng.md` (English homepage content), authoring guide at `build-plans/MARKDOWN-CONTENT-SKILL.md`
+* Build script development — Node.js build system not yet implemented; currently using client-side CSV loading (`app/js/bridge-loader.js`, `app/js/csv-utils.js`) and client-side markdown parsing (`app/js/md-utils.js`)
 
-**Phase 3: Core Development**
+**Phase 3: Core Development** — *Early Progress*
 
-* Build scripts for page and PDF generation
-* ArcGIS Online (AGOL) map integration and configuration
-* Scroll animation implementation
-* Bilingual navigation and language switching
-* PDF generation system with layout precision
-* Interactive data visualizations (graphs, tables)
-* Custom charts for traffic statistics, trends, and crossing data
+* Build scripts for page and PDF generation — not yet started
+* ArcGIS Online (AGOL) map integration and configuration — not yet started
+* Scroll animation implementation — not yet started
+* Bilingual navigation and language switching — not yet started
+* PDF generation system with layout precision — *started:* print CSS and PDF template infrastructure in place; download button implemented on bridge page
+* Interactive data visualizations (graphs, tables) — not yet started
+* Custom charts for traffic statistics, trends, and crossing data — not yet started
 
-**Phase 4: Design \ Style**
+**Phase 4: Design \ Style** — *In Progress*
 
 * **TxDOT Design Implementation:**
-  * Analyze TxDOT website (https://www.txdot.gov/) structure and design
-  * Extract and replicate navigation structure, header/footer, color scheme, typography
-  * Create component library matching TxDOT's visual language (cards, buttons, hero sections)
-  * Reference TxDOT Brand Guidelines for official colors, logos, and standards
-* **Website Style**:**
-  * Cascading Style Sheet (CSS) styling for all page types matching TxDOT design
-  * Responsive design implementation matching TxDOT breakpoints
-  * Print CSS for PDF generation
-  * Ensuring visual consistency across all pages
+  * ~~Analyze TxDOT website (https://www.txdot.gov/) structure and design~~ ✓ Done
+  * ~~Extract and replicate navigation structure, header/footer, color scheme, typography~~ ✓ Done — IBM Plex Sans, TxDOT brand colors implemented
+  * ~~Create component library matching TxDOT's visual language (cards, buttons, hero sections)~~ ✓ Done — CSS design system in `page-previews/css/` (variables, base, layout, components)
+  * Reference TxDOT Brand Guidelines for official colors, logos, and standards — ongoing
+* **Website Style:**
+  * ~~CSS styling for homepage matching TxDOT design~~ ✓ Done
+  * CSS styling for bridge pages — *in progress* (`app/css/bridge.css`)
+  * Responsive design implementation matching TxDOT breakpoints — *in progress*
+  * ~~Print CSS for PDF generation~~ ✓ Done — `page-previews/css/print.css` + `app/pdf-templates/css/factsheet.css`
+  * Ensuring visual consistency across all pages — ongoing
 * **Brand Alignment:**
   * Verify alignment with TxDOT brand identity
   * Client feedback and design revisions
   * Final design and consistency checks
 
-**Phase 5: Testing, QA \ Deployment**
+**Phase 5: Testing, QA \ Deployment** — *Not Started*
 
 * Build process testing with full dataset
 * Cross-browser testing
@@ -224,7 +254,7 @@ The content will be updated with **2026 data and additional information for Mexi
 * GitHub Pages deployment
 * SME documentation and training
 
-**Phase 6: Revisions \ Final Edits**
+**Phase 6: Revisions \ Final Edits** — *Not Started*
 
 * Client review cycles and stakeholder feedback
 * Content adjustments and refinements
